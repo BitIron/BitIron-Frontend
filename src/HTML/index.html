@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="bitiron">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitIron Elite</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "bit-cyan": "#29b6c1",
+                        "bit-purple": "#6a359c",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#0b021a] min-h-screen text-white overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-[100] px-4 py-3">
+        <div
+            class="max-w-7xl mx-auto navbar bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(41,182,193,0.15)]">
+
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden text-bit-cyan">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </label>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-2xl bg-[#160a2c] rounded-xl w-64 border border-white/10 gap-2">
+                        <li><a class="text-lg font-bold hover:text-bit-cyan">TIENDA</a></li>
+                        <li><a class="text-lg font-bold hover:text-bit-cyan">BIT-IRON IA</a></li>
+                        <li><a class="text-lg font-bold hover:text-bit-cyan">CARRITO</a></li>
+                        <li><a class="text-lg font-bold hover:text-bit-cyan">PERFIL</a></li>
+                        <div class="divider opacity-20"></div>
+                        <li><a class="btn btn-primary btn-sm text-black">UNIRSE</a></li>
+                    </ul>
+                </div>
+                <a class="flex items-center gap-2 px-2">
+                    <img src="../imagenes/logo.png" alt="Logo" class="h-8 md:h-10">
+
+                </a>
+            </div>
+
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1 gap-6 text-[11px] font-black tracking-[0.2em] uppercase">
+                    <li><a class="hover:text-bit-cyan transition-all">TIENDA</a></li>
+                    <li><a class="hover:text-bit-cyan transition-all">BIT-IRON IA</a></li>
+                    <li><a class="hover:text-bit-cyan transition-all">CARRITO</a></li>
+                </ul>
+            </div>
+
+            <div class="navbar-end gap-4 px-2">
+                <a
+                    class="hidden sm:block text-xs font-bold hover:text-bit-cyan cursor-pointer transition-colors">LOGIN</a>
+                <button
+                    class="btn btn-sm md:btn-md bg-bit-cyan border-none text-black font-black rounded-full px-6 hover:shadow-[0_0_15px_#29b6c1] transition-all">
+                    UNIRSE
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative pt-48 pb-20 px-6 flex flex-col items-center text-center">
+        <div class="absolute top-40 left-1/4 w-64 h-64 bg-bit-cyan/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-20 right-1/4 w-80 h-80 bg-bit-purple/20 rounded-full blur-[120px]"></div>
+
+        <h1 class="relative text-5xl md:text-8xl font-black italic mb-4 tracking-tighter leading-none">
+            FORJA TU <br>
+            <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 drop-shadow-[0_0_15px_rgba(41,182,193,0.5)]">
+                CUERPO DE ÉLITE
+            </span>
+        </h1>
+
+        <p class="max-w-xl text-gray-400 text-sm md:text-base mb-12 leading-relaxed">
+            Bienvenido a Bit-Iron, tu tienda de suplementos de alta calidad.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button
+                class="btn btn-primary bg-bit-cyan border-none text-black px-10 font-black rounded-xl shadow-[0_0_20px_rgba(41,182,193,0.4)]">
+                GENERAR PLAN
+            </button>
+            <button
+                class="btn btn-outline border-white/20 text-white px-10 font-black rounded-xl hover:bg-white/10 transition-all">
+                VER TIENDA
+            </button>
+        </div>
+    </main>
+
+    <footer class="relative mt-20 border-t border-white/5 bg-[#0b021a]/80 backdrop-blur-md">
+        <div
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-bit-cyan to-transparent opacity-50">
+        </div>
+
+        <div class="footer max-w-7xl mx-auto p-10 text-base-content flex flex-col md:flex-row justify-between gap-10">
+
+            <aside class="flex flex-col gap-4">
+                <div class="flex items-center gap-2">
+                    <img src="../imagenes/logo.png" alt="Logo" class="h-10 w-auto opacity-80">
+                    <p class="text-2xl font-black italic tracking-tighter text-white">
+                        BIT<span class="text-bit-cyan">IRON</span>
+                    </p>
+                </div>
+                <p class="max-w-xs text-gray-500 text-sm leading-relaxed">
+                    Elevando el estándar del fitness digital. Si entrenas con nosotros, tus resultados hablan por sí
+                    mismos.
+                </p>
+                <div class="flex gap-4 mt-2">
+                    <a class="link link-hover text-gray-400 hover:text-bit-cyan transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a class="link link-hover text-gray-400 hover:text-bit-cyan transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </aside>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-20">
+                <nav class="flex flex-col gap-3">
+                    <header class="text-white font-black text-xs tracking-widest uppercase opacity-50 mb-2">Ecosistema
+                    </header>
+                    <a class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Tienda</a>
+                    <a class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Planes IA</a>
+                    <a class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Comunidad</a>
+                </nav>
+                <nav class="flex flex-col gap-3">
+                    <header class="text-white font-black text-xs tracking-widest uppercase opacity-50 mb-2">Legal
+                    </header>
+                    <a
+                        class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Privacidad</a>
+                    <a class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Términos</a>
+                    <a class="link link-hover text-gray-400 text-sm hover:text-bit-cyan transition-colors">Cookies</a>
+                </nav>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <header class="text-white font-black text-xs tracking-widest uppercase opacity-50">Newsletter</header>
+                <div class="join shadow-lg">
+                    <input
+                        class="input input-bordered join-item bg-white/5 border-white/10 text-sm focus:border-bit-cyan outline-none w-full sm:w-auto"
+                        placeholder="Tu email" />
+                    <button class="btn btn-primary join-item bg-bit-cyan border-none text-black font-bold">OK</button>
+                </div>
+                <p class="text-[10px] text-gray-600 uppercase font-bold tracking-widest">Recibe actualizaciones de élite
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="footer footer-center p-4 text-gray-600 border-t border-white/5 text-[10px] font-bold tracking-widest uppercase">
+            <aside>
+                <p>© 2026 BIT IRON </p>
+            </aside>
+        </div>
+    </footer>
+
+</body>
+
+</html>
