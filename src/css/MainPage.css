@@ -1,0 +1,9 @@
+#product-carousel {
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.carousel-item {
+    scroll-snap-align: center;
+}

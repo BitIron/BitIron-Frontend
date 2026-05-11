@@ -78,22 +78,22 @@ function renderCarousel() {
 
 
 function iniciarAutoSlide() {
+    const carousel = document.getElementById("product-carousel");
     const slides = productos.length;
 
     interval = setInterval(() => {
         slideIndex = (slideIndex + 1) % slides;
 
-        const target = document.getElementById(`slide${slideIndex}`);
+        const slide = document.getElementById(`slide${slideIndex}`);
 
-        if (target) {
-            target.scrollIntoView({
-                behavior: "smooth",
-                inline: "center",
-                block: "nearest"
+        if (slide && carousel) {
+            carousel.scrollTo({
+                left: slide.offsetLeft,
+                behavior: "smooth"
             });
         }
 
-    }, 4000);
+    }, 6000);
 }
 
 
