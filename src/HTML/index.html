@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BitIron Elite | Forging Champions</title>
+
+    <title>BitIron Store | Elite Arsenal</title>
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css"
         crossorigin="anonymous" />
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script>
         tailwind.config = {
             theme: {
@@ -24,55 +29,142 @@
             }
         }
     </script>
+
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         .text-outline {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             color: transparent;
         }
 
         .bg-noise {
             background-size: 30px 30px;
         }
-
-        /* Suavizar el scroll */
-        html {
-            scroll-behavior: smooth;
-        }
     </style>
+
 </head>
 
 <body class="bg-[#0b021a] bg-grid-pattern bg-noise min-h-screen text-white overflow-x-hidden font-sans">
 
+    <!-- GLOW BACKGROUND -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+
+        <div class="absolute top-20 left-20 w-96 h-96 bg-bit-cyan/10 rounded-full blur-[140px]">
+        </div>
+
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-bit-purple/10 rounded-full blur-[140px]">
+        </div>
+
+    </div>
+
+    <!-- NAVBAR -->
     <nav class="fixed top-0 w-full z-[100] px-4 py-5 transition-all duration-300">
+
         <div
             class="max-w-7xl mx-auto navbar bg-black/60 backdrop-blur-2xl border border-white/5 rounded-3xl shadow-2xl px-6">
+
+            <!-- LEFT -->
             <div class="navbar-start">
-                <a class="flex items-center gap-3 group cursor-pointer">
+
+                <!-- MOBILE MENU -->
+                <div class="dropdown lg:hidden">
+
+                    <label tabindex="0" class="btn btn-ghost text-bit-cyan">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+
+                        </svg>
+
+                    </label>
+
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-4 z-[100] p-4 shadow-2xl bg-[#160a2c] rounded-2xl w-64 border border-white/10 gap-2">
+
+                        <li><a class="text-bit-cyan">Home</a></li>
+
+                        <li><a href="product.html">Store</a></li>
+                        <li><a>IA Coach</a></li>
+
+                    </ul>
+
+                </div>
+
+                <!-- LOGO -->
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+
                     <img src="../imagenes/logo.png" alt="Logo" class="h-10 group-hover:rotate-12 transition-transform">
-                    <span class="text-2xl font-black italic tracking-tighter hidden sm:block">BIT<span
-                            class="text-bit-cyan">IRON</span></span>
+
+                    <span class="text-2xl font-black italic tracking-tighter hidden sm:block">
+
+                        BIT<span class="text-bit-cyan">IRON</span>
+
+                    </span>
+
                 </a>
+
             </div>
 
+            <!-- DESKTOP MENU -->
             <div class="navbar-center hidden lg:flex">
+
                 <ul class="flex gap-10 text-[10px] font-black tracking-[0.3em] uppercase">
-                    <li><a href="product.html" class="hover:text-bit-cyan transition-all cursor-pointer">Store</a></li>
-                    <li><a class="hover:text-bit-cyan transition-all cursor-pointer">IA Coach</a></li>
-                    <li><a class="hover:text-bit-cyan transition-all cursor-pointer">Community</a></li>
+
+
+
+                    <li>
+                        <a class="text-bit-cyan">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="product.html" class="hover:text-bit-cyan transition-all">
+                            Store
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="hover:text-bit-cyan transition-all">
+                            IA Coach
+                        </a>
+                    </li>
+
+
+
                 </ul>
+
             </div>
 
+            <!-- RIGHT -->
             <div class="navbar-end gap-6">
+
                 <a
-                    class="hidden md:block text-[10px] font-black tracking-widest hover:text-bit-cyan transition-colors cursor-pointer">MEMBER
-                    LOGIN</a>
+                    class="hidden md:block text-[10px] font-black tracking-widest hover:text-bit-cyan transition-colors cursor-pointer">
+
+                    MEMBER LOGIN
+
+                </a>
+
                 <button
                     class="btn btn-sm bg-bit-cyan border-none text-black font-black rounded-full px-8 hover:scale-105 shadow-[0_0_20px_rgba(41,182,193,0.3)] transition-all">
+
                     JOIN NOW
+
                 </button>
+
             </div>
+
         </div>
+
     </nav>
+
 
     <main class="relative pt-32 flex flex-col items-center">
         <div class="absolute top-20 left-1/4 w-96 h-96 bg-bit-cyan/10 rounded-full blur-[120px] -z-10 animate-pulse">
