@@ -1,23 +1,26 @@
 // src/main.js
+// Punto de entrada de la aplicación BitIron Frontend
+
 import './styles/global.css';
 import { MainLayout } from './layouts/MainLayout.js';
-import { Hero, initHeroAnimations } from './components/Hero.js';
+import { Hero } from './components/Hero.js';
+import { initHeroAnimations } from './lib/motion.js';
 
 /**
- * Función de inicialización de la App.
- * Aquí montamos la estructura inicial y disparamos las animaciones.
+ * Función de inicialización principal.
+ * 1. Inyecta el HTML del Layout (Navbar + Hero + Footer) en #app
+ * 2. Lanza las animaciones de Motion una vez el DOM está pintado
  */
 const initApp = () => {
   const app = document.querySelector('#app');
-  
-  // En una arquitectura modular de Vanilla JS, inyectamos el Hero dentro del Layout
+
+  // Construimos el HTML completo y lo inyectamos
   app.innerHTML = MainLayout(Hero());
 
-  // Una vez inyectado en el DOM, inicializamos las animaciones de Motion
+  // Iniciamos las animaciones del Hero tras el render
   initHeroAnimations();
 
   console.log('🚀 BitIron Frontend Initialized | Unleash Your Legacy');
 };
 
-// Arrancamos cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initApp);
