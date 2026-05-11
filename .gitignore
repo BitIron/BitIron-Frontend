@@ -6,3 +6,15 @@ Dist/
 npm-debug.log
 .idea/
 .vscode/
+
+# Dependencias (NUNCA se suben)
+node_modules/
+dist/
+
+# Herramientas de IA y Configuración Local
+.agent/
+.env
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
