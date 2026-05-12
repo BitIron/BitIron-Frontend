@@ -1,11 +1,12 @@
 // src/components/Footer.js
-// Este componente gestionará el pie de página del sitio con la estética BitIron.
+// src/components/Footer.js
+
 export const Footer = () => {
   return `
     <footer class="bg-black text-white border-t border-white/5 py-12 px-6 mt-auto">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         
-        <!-- SECCIÓN DE MARCA -->
+        <!-- BRAND SECTION -->
         <div class="col-span-1 md:col-span-1">
           <h2 class="text-2xl font-black italic tracking-tighter mb-4">
             BIT<span class="text-red-600">IRON</span>
@@ -16,7 +17,7 @@ export const Footer = () => {
           </p>
         </div>
 
-        <!-- EXPLORAR -->
+        <!-- EXPLORER -->
         <div>
           <h3 class="text-[10px] font-black tracking-[0.3em] uppercase mb-6 text-gray-400">Explore</h3>
           <ul class="space-y-3 text-xs font-bold uppercase tracking-tighter">
@@ -27,7 +28,7 @@ export const Footer = () => {
           </ul>
         </div>
 
-        <!-- SOPORTE -->
+        <!-- SUPPORT -->
         <div>
           <h3 class="text-[10px] font-black tracking-[0.3em] uppercase mb-6 text-gray-400">Support</h3>
           <ul class="space-y-3 text-xs font-bold uppercase tracking-tighter">
@@ -51,7 +52,7 @@ export const Footer = () => {
 
       </div>
 
-      <!-- BARRA INFERIOR -->
+      <!-- BOTTOM BAR -->
       <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-[8px] text-gray-600 tracking-[0.2em] uppercase">
           © 2026 BITIRON ARSENAL. ALL RIGHTS RESERVED.
