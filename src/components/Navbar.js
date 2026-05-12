@@ -1,60 +1,51 @@
 // src/components/Navbar.js
-// Navbar fija con blur — traducción exacta del diseño v0.dev a Vanilla JS + DaisyUI
+// Versión optimizada: Mobile-first, accesibilidad mejorada y efectos de scroll.
 
 export const Navbar = () => `
-  <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10 px-4 md:px-8">
+  <nav class="navbar fixed top-0 left-0 right-0 z-[100] bg-black/80 backdrop-blur-xl border-b border-white/5 px-4 lg:px-12 transition-all duration-300" id="main-nav">
 
-    <!-- Logo -->
+    <!-- Menú Hamburguesa (Solo Móvil) -->
     <div class="navbar-start">
-      <a href="/" class="btn btn-ghost text-2xl font-black uppercase tracking-tighter px-0 hover:bg-transparent">
-        <span class="text-white">BIT</span>
-        <span class="text-[#e62429]">IRON</span>
+      <div class="dropdown md:hidden">
+        <label tabindex="0" class="btn btn-ghost btn-square text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 8h16M4 16h16" />
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-2xl bg-black border border-white/10 w-64 uppercase font-black italic tracking-tighter">
+          <li><a href="#catalog" class="py-4 hover:text-red-600">Catalog</a></li>
+          <li><a href="#philosophy" class="py-4 hover:text-red-600">Philosophy</a></li>
+          <li><a href="#lab" class="py-4 hover:text-red-600">The Lab</a></li>
+          <li><a href="#athletes" class="py-4 hover:text-red-600">Athletes</a></li>
+        </ul>
+      </div>
+
+      <!-- Logo con redimensionado suave -->
+      <a href="/" class="btn btn-ghost text-2xl lg:text-3xl font-black uppercase tracking-tighter px-0 hover:bg-transparent transition-transform hover:scale-105 active:scale-95">
+        <span class="text-white">BIT</span><span class="text-[#e62429]">IRON</span>
       </a>
     </div>
 
-    <!-- Links de navegación (ocultos en móvil) -->
     <div class="navbar-center hidden md:flex">
-      <ul class="menu menu-horizontal gap-2 px-1">
-        <li>
-          <a href="#catalog" class="text-[11px] font-black tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-transparent">
-            Catalog
-          </a>
-        </li>
-        <li>
-          <a href="#philosophy" class="text-[11px] font-black tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-transparent">
-            Philosophy
-          </a>
-        </li>
-        <li>
-          <a href="#lab" class="text-[11px] font-black tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-transparent">
-            Lab
-          </a>
-        </li>
-        <li>
-          <a href="#athletes" class="text-[11px] font-black tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-transparent">
-            Athletes
-          </a>
-        </li>
+      <ul class="menu menu-horizontal px-1">
+        ${['Catalog', 'Philosophy', 'Lab', 'Athletes'].map(item => `
+          <li>
+            <a href="#${item.toLowerCase()}" 
+               class="relative text-[10px] font-black tracking-[0.3em] uppercase text-white/50 hover:text-white transition-all duration-300 hover:bg-transparent group">
+               ${item}
+               <span class="absolute bottom-0 left-1/2 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+            </a>
+          </li>
+        `).join('')}
       </ul>
     </div>
 
-    <!-- Carrito -->
-    <div class="navbar-end">
+    <div class="navbar-end gap-2">
+    
       <div class="indicator">
-        <span class="indicator-item badge bg-[#e62429] border-[#e62429] text-white badge-sm text-[10px] font-black">0</span>
-        <button id="cart-btn" class="btn btn-ghost btn-square" aria-label="Shopping cart">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="square"
-            stroke-linejoin="miter"
-            class="text-white/70"
-          >
+        <span class="indicator-item badge bg-[#e62429] border-none text-[8px] font-black text-white h-4 min-w-[16px] animate-pulse">0</span>
+        <button id="cart-btn" class="btn btn-ghost btn-square hover:bg-white/5 group" aria-label="View Shopping Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" class="text-white/80 group-hover:text-red-600 transition-colors">
             <path d="M6 6h15l-1.5 9h-12z" />
             <path d="M6 6L5 2H2" />
             <circle cx="9" cy="20" r="1" fill="currentColor" />
