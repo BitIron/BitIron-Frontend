@@ -40,3 +40,20 @@
 .animate-marquee {
   animation: marquee 40s linear infinite;
 }
+
+/* ─── Hero background: responsive position ─────────────────────────────────
+   On desktop: center top (shows athlete's face + torso naturally)
+   On mobile:  shift horizontally to ~55% so the bodybuilder stays centered
+   and is not cropped to the left on narrow viewports
+─────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  #hero-bg {
+    background-position: 55% top !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #hero-bg {
+    background-position: center top !important;
+  }
+}
