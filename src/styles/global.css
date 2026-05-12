@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-black text-white overflow-x-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Custom scrollbar - BitIron red accent */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #e62429;
+  }
+}
+
+/* Marquee animation for future ticker sections */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* ─── Hero background: responsive position ─────────────────────────────────
+   On desktop: center top (shows athlete's face + torso naturally)
+   On mobile:  shift horizontally to ~55% so the bodybuilder stays centered
+   and is not cropped to the left on narrow viewports
+─────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  #hero-bg {
+    background-position: 55% top !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #hero-bg {
+    background-position: center top !important;
+  }
+}
