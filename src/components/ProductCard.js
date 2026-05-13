@@ -1,9 +1,79 @@
 // src/components/ProductCard.js
-// Este componente representará cada producto de la tienda.
+// Tarjeta de producto individual.
+// Recibe un objeto product del backend: { id, nombre, precio, categoria, imagen_url, descripcion }
+// Renderiza HTML string para inyectar en el grid.
+
 export const ProductCard = (product) => {
+  // Normalizamos las propiedades para soportar tanto minúsculas (JS) como Mayúsculas (SQL/Backend)
+  const id          = product.id          || product.ID;
+  const nombre      = product.nombre      || product.Nombre;
+  const precio      = product.precio      || product.Precio;
+  const categoria   = product.categoria   || product.Categoria;
+  const imagen_url  = product.imagen_url  || product.Imagen_URL;
+  const descripcion = product.descripcion || product.Descripcion;
+
+  // Formatea el precio con 2 decimales y símbolo €
+  const formattedPrice = parseFloat(precio || 0).toFixed(2);
+
+  // Label de categoría — color rojo si es "pre-workout", blanco resto
+  const categoryLabel = categoria ? categoria.toUpperCase() : 'SUPPLEMENT';
+
+  // Imagen: usa la del backend o un placeholder oscuro con iniciales
+  const imgSrc = imagen_url || `https://placehold.co/400x400/111111/e62429?text=${encodeURIComponent(nombre?.charAt(0) || 'B')}`;
+
   return `
-    <div class="product-card">
-      <p>Product Card: ${product.nombre}</p>
-    </div>
+    <article
+      class="product-card group relative flex flex-col bg-white border border-black/8 overflow-hidden cursor-pointer
+             transition-all duration-500 hover:border-[#e62429]/40 hover:-translate-y-1 shadow-sm hover:shadow-lg"
+      data-id="${id}"
+      data-category="${categoria || 'all'}"
+      style="opacity: 0;"
+    >
+      <!-- Imagen del producto -->
+      <div class="relative overflow-hidden aspect-square bg-[#f4f4f4]">
+        <img
+          src="${imgSrc}"
+          alt="${nombre}"
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+          onerror="this.src='https://placehold.co/400x400/111111/e62429?text=B'"
+        />
+        <!-- Overlay sutil en hover -->
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 pointer-events-none"></div>
+
+        <!-- Badge de categoría -->
+        <span class="absolute top-3 left-3 text-[9px] font-black tracking-[0.2em] uppercase
+                     bg-black/70 text-[#e62429] px-2 py-1 border border-[#e62429]/30">
+          ${categoryLabel}
+        </span>
+      </div>
+
+      <!-- Info del producto -->
+      <div class="flex flex-col flex-grow p-4 gap-2 bg-white">
+
+        <!-- Nombre -->
+        <h3 class="font-black uppercase text-black text-sm tracking-tight leading-tight line-clamp-2">
+          ${nombre}
+        </h3>
+
+        <!-- Descripción corta (opcional) -->
+        ${descripcion ? `
+        <p class="text-black/40 text-[11px] leading-relaxed line-clamp-2">
+          ${descripcion}
+        </p>` : ''}
+
+        <!-- Precio -->
+        <div class="flex items-center justify-between mt-auto pt-3 border-t border-black/8">
+          <span class="font-black text-black text-lg tracking-tight">
+            ${formattedPrice}<span class="text-xs text-black/40 ml-1">€</span>
+          </span>
+
+          <span class="text-[9px] font-black uppercase tracking-[0.2em] text-[#e62429]">
+            View Details
+          </span>
+        </div>
+
+      </div>
+    </article>
   `;
 };
