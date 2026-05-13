@@ -21,7 +21,7 @@ export const Navbar = () => `
         </ul>
       </div>
 
-      <!-- Logo with smooth resizing -->
+      <!-- Logo -->
       <a href="/" class="btn btn-ghost text-2xl lg:text-3xl font-black uppercase tracking-tighter px-0 hover:bg-transparent transition-transform hover:scale-105 active:scale-95">
         <span class="text-white">BIT</span><span class="text-[#e62429]">IRON</span>
       </a>
@@ -42,16 +42,29 @@ export const Navbar = () => `
       </ul>
     </div>
 
-    <!-- Shopping Cart -->
-    <div class="navbar-end gap-2">
+    <!-- Search & Cart -->
+    <div class="navbar-end gap-4">
+      
+      <!-- SEARCH BAR -->
+      <div class="relative hidden sm:block">
+        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+          <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <input 
+          id="search-input" 
+          type="text" 
+          placeholder="SEARCH PRODUCT..." 
+          class="bg-white/5 border border-white/10 text-[10px] font-black tracking-widest rounded-none w-40 lg:w-64 py-2 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-red-600 focus:bg-white/10 transition-all"
+        />
+      </div>
 
+      <!-- Shopping Cart -->
       <div class="indicator">
-        <span class="indicator-item badge bg-[#e62429] border-none text-[8px] font-black text-white h-4 min-w-[16px] animate-pulse">
-          0
-        </span>
-
-        <button id="cart-btn" class="btn btn-ghost btn-square hover:bg-white/5 group" aria-label="View Shopping Cart">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" class="text-white/80 group-hover:text-red-600 transition-colors">
+        <span class="indicator-item badge bg-[#e62429] border-none text-[8px] font-black text-white h-4 min-w-[16px] animate-pulse">0</span>
+        <button id="cart-btn" class="btn btn-ghost btn-square hover:bg-white/5 group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-white/80 group-hover:text-red-600 transition-colors">
             <path d="M6 6h15l-1.5 9h-12z" />
             <path d="M6 6L5 2H2" />
             <circle cx="9" cy="20" r="1" fill="currentColor" />
@@ -59,8 +72,6 @@ export const Navbar = () => `
           </svg>
         </button>
       </div>
-
     </div>
-
   </nav>
 `;
