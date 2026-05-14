@@ -1,5 +1,6 @@
 // src/layouts/MainLayout.js
 import { Navbar } from '../components/Navbar.js';
+import { Footer } from '../components/Footer.js';
 
 /**
  * El Layout principal actúa como un contenedor.
@@ -12,6 +13,7 @@ export const MainLayout = (content) => {
       <main class="flex-grow">
         ${content}
       </main>
+      ${Footer()}
     </div>
   `;
 };
