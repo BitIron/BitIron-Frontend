@@ -7,10 +7,9 @@ import { ShopCatalog, initShopCatalog } from './components/ShopCatalog.js';
 import { Footer } from './components/Footer.js';
 import { initHeroAnimations, animatePhilosophySection } from './lib/motion.js';
 
-// Componentes y Páginas del Chat
-import { AICoachChat } from './components/AIchat.js';      // El botón flotante
-import { AIchatPage } from './pages/AIchat.js';          // La página completa
-import { initAICoach } from './lib/aichat.js';            // La lógica (redirección y escritura)
+import { AICoachChat } from './components/AIchat.js';
+import { AIchatPage } from './pages/AIchat.js';
+import { initAICoach } from './lib/aichat.js';
 
 const initApp = () => {
   const app = document.querySelector('#app');
