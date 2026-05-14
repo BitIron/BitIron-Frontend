@@ -1,65 +1,55 @@
 // src/components/Navbar.js
-// Navbar fija con blur — Versión Blanca (Premium/Brutalist)
+export const Navbar = () => {
+  return `
+    <nav class="navbar fixed top-0 left-0 right-0 z-[100] bg-white/80 backdrop-blur-md border-b border-black/5 px-6 lg:px-16 transition-all duration-300">
+      <div class="navbar-start">
+        <!-- Hamburger Menu (Mobile) -->
+        <div class="dropdown lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-square text-black">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </label>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-6 shadow-2xl bg-white border border-black/10 w-72 uppercase font-black italic tracking-tighter text-black">
+            <li class="mb-2"><a href="#catalog" class="text-lg hover:text-red-600 transition-colors">Catalog</a></li>
+            <li class="mb-2"><a href="#philosophy" class="text-lg hover:text-red-600 transition-colors">Philosophy</a></li>
+            <li class="mb-2"><a href="#lab" class="text-lg hover:text-red-600 transition-colors">The Lab</a></li>
+            <li class="mt-4 border-t border-black/5 pt-4">
+               <a href="#account" class="text-sm font-bold opacity-50">My Account</a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- BIT-IRON Branding -->
+        <a href="/" class="group flex items-center gap-1 btn btn-ghost px-0 hover:bg-transparent transition-transform active:scale-95">
+          <span class="text-2xl lg:text-3xl font-black uppercase tracking-tighter text-black">BIT</span>
+          <span class="text-2xl lg:text-3xl font-black uppercase tracking-tighter text-red-600 group-hover:italic transition-all">IRON</span>
+        </a>
+      </div>
 
-export const Navbar = () => `
-  <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-black/5 px-4 md:px-8">
+      <!-- Desktop Navigation -->
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-black/40">
+          <li>
+            <a href="#catalog" class="hover:text-black hover:bg-transparent relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-red-600 hover:after:w-full after:transition-all after:duration-300">Catalog</a>
+          </li>
+          <li>
+            <a href="#philosophy" class="hover:text-black hover:bg-transparent relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-red-600 hover:after:w-full after:transition-all after:duration-300">Philosophy</a>
+          </li>
+          <li>
+            <a href="#lab" class="hover:text-black hover:bg-transparent relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-red-600 hover:after:w-full after:transition-all after:duration-300">The Lab</a>
+          </li>
+        </ul>
+      </div>
 
-    <!-- Logo -->
-    <div class="navbar-start">
-      <a href="/" class="btn btn-ghost text-2xl font-black uppercase tracking-tighter px-0 hover:bg-transparent">
-        <span class="text-black">BIT</span>
-        <span class="text-[#e62429]">IRON</span>
-      </a>
-    </div>
-
-    <!-- Links de navegación -->
-    <div class="navbar-center hidden md:flex">
-      <ul class="menu menu-horizontal gap-2 px-1">
-        <li>
-          <a href="#catalog" class="text-[11px] font-black tracking-[0.2em] uppercase text-black/40 hover:text-black hover:bg-transparent transition-colors">
-            Catalog
-          </a>
-        </li>
-        <li>
-          <a href="#philosophy" class="text-[11px] font-black tracking-[0.2em] uppercase text-black/40 hover:text-black hover:bg-transparent transition-colors">
-            Philosophy
-          </a>
-        </li>
-        <li>
-          <a href="/advisor.html" class="text-[11px] font-black tracking-[0.2em] uppercase text-black/40 hover:text-black hover:bg-transparent transition-colors">
-            Lab
-          </a>
-        </li>
-        <li>
-          <a href="/login.html" class="text-[11px] font-black tracking-[0.2em] uppercase text-black/40 hover:text-black hover:bg-transparent transition-colors">
-            Account
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Carrito -->
-    <div class="navbar-end">
-      <button id="cart-btn" class="btn btn-ghost btn-square" aria-label="Shopping cart">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="square"
-          stroke-linejoin="miter"
-          class="text-black/60"
-        >
-          <path d="M6 6h15l-1.5 9h-12z" />
-          <path d="M6 6L5 2H2" />
-          <circle cx="9" cy="20" r="1" fill="currentColor" />
-          <circle cx="18" cy="20" r="1" fill="currentColor" />
-        </svg>
-      </button>
-    </div>
-
-  </nav>
-`;
+      <!-- Actions (Right) -->
+      <div class="navbar-end gap-2">
+        <button class="btn btn-ghost btn-square text-black hover:bg-black hover:text-white transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  `;
+};
