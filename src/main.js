@@ -1,11 +1,4 @@
 // src/main.js
-// Punto de entrada de la aplicación BitIron Frontend
-// Orden de secciones (presentación scroll):
-//   1. Hero          (100dvh, blanco)
-//   2. Philosophy    (100dvh, blanco — frase + 3 pilares)
-//   3. Shop Catalog  (100dvh, blanco)
-//   4. Footer
-
 import './styles/global.css';
 import { MainLayout } from './layouts/MainLayout.js';
 import { Hero } from './components/Hero.js';
@@ -14,28 +7,36 @@ import { ShopCatalog, initShopCatalog } from './components/ShopCatalog.js';
 import { Footer } from './components/Footer.js';
 import { initHeroAnimations, animatePhilosophySection } from './lib/motion.js';
 
-/**
- * Función de inicialización principal.
- * 1. Construye el HTML completo con todas las secciones.
- * 2. Lanza las animaciones y lógicas de cada componente.
- */
+// Componentes y Páginas del Chat
+import { AICoachChat } from './components/AIchat.js';      // El botón flotante
+import { AIchatPage } from './pages/AIchat.js';          // La página completa
+import { initAICoach } from './lib/aichat.js';            // La lógica (redirección y escritura)
+
 const initApp = () => {
   const app = document.querySelector('#app');
+  const path = window.location.pathname;
 
-  // Construimos el HTML completo (presentación por diapositivas)
+  // 1. MODO PÁGINA DE CHAT
+  if (path === '/aichat') {
+    app.innerHTML = MainLayout(AIchatPage());
+    initAICoach(); // Esto activará el formulario de escritura
+    return; // Salimos para no cargar la Home
+  }
+
+  // 2. MODO HOME (Por defecto)
   app.innerHTML = MainLayout(
-    Hero() + 
-    PhilosophySection() + 
-    ShopCatalog() + 
-    Footer()
+    Hero() +
+    PhilosophySection() +
+    ShopCatalog() +
+    Footer() +
+    AICoachChat() // Aquí AICoachChat() solo devuelve el botón flotante
   );
 
-  // Lanza las animaciones tras el render
+  // Inicializamos lógicas de la Home
   initHeroAnimations();
   animatePhilosophySection();
-  
-  // Inicializa la lógica del catálogo (carga de productos)
   initShopCatalog();
+  initAICoach(); // Esto activará el evento click del botón flotante para ir a /aichat
 
   console.log('🚀 BitIron Frontend Initialized | Unleash Your Legacy');
 };
