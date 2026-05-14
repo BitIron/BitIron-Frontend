@@ -11,7 +11,6 @@ import { MainLayout } from './layouts/MainLayout.js';
 import { Hero } from './components/Hero.js';
 import { PhilosophySection } from './components/PhilosophySection.js';
 import { ShopCatalog, initShopCatalog } from './components/ShopCatalog.js';
-import { Footer } from './components/Footer.js';
 import { initHeroAnimations, animatePhilosophySection } from './lib/motion.js';
 
 /**
@@ -26,8 +25,7 @@ const initApp = () => {
   app.innerHTML = MainLayout(
     Hero() + 
     PhilosophySection() + 
-    ShopCatalog() + 
-    Footer()
+    ShopCatalog()
   );
 
   // Lanza las animaciones tras el render
