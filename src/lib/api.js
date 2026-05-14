@@ -43,4 +43,30 @@ export const getProductoById = async (id) => {
   return response.data;
 };
 
+// ── AUTHENTICATION ──────────────────────────────────────────────────────────
+
+export const setToken = (token) => {
+  localStorage.setItem('bitiron_token', token);
+};
+
+export const getToken = () => {
+  return localStorage.getItem('bitiron_token');
+};
+
+export const clearToken = () => {
+  localStorage.removeItem('bitiron_token');
+};
+
+export const login = async (email, password) => {
+  const response = await api.post('/auth/login', { email, password });
+  return response.data;
+};
+
+export const register = async (nombreCompleto, email, password) => {
+  // Nota: El backend tiene la ruta '/auth/registro' (o register? Revisemos authRoutes.js si es registro)
+  // El controlador se llama 'registro'. Asumiré que la ruta es '/auth/registro'
+  const response = await api.post('/auth/registro', { nombreCompleto, email, password });
+  return response.data;
+};
+
 export default api;
