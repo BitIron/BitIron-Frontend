@@ -1,7 +1,7 @@
 // src/lib/aichat.js
 
 export const initAICoach = () => {
-    // 1. Lógica del Botón Flotante (Redirección)
+    // 1. Floating Button Logic (Redirection)
     const trigger = document.querySelector('#ai-coach-trigger');
     if (trigger) {
         trigger.addEventListener('click', () => {
@@ -9,19 +9,19 @@ export const initAICoach = () => {
         });
     }
 
-    // 2. Lógica de la Página de Chat (Formulario Inteligente)
+    // 2. Chat Page Logic (Smart Form)
     const chatForm = document.querySelector('#chat-form');
     const chatInput = document.querySelector('#chat-input');
     const chatMessages = document.querySelector('#chat-messages');
 
     if (!chatForm) return;
 
-    // Objeto que sigue las pautas de tu Backend (IdCliente, TipoPlan, PrecioMensual)
+    // Object following Backend guidelines (IdCliente, TipoPlan, PrecioMensual)
     let asesoriaData = {
-        IdCliente: 1, // En producción se sacaría del JWT o sesión
+        IdCliente: 1, // In production, this would come from JWT or session
         TipoPlan: '',
         PrecioMensual: 0,
-        FechaInicio: new Date().toISOString().split('T')[0], // Formato YYYY-MM-DD
+        FechaInicio: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
         PagadoAlDia: false
     };
 
@@ -39,24 +39,24 @@ export const initAICoach = () => {
 
     const processStep = (input) => {
         switch (currentStep) {
-            case 0: // Selección de Plan
+            case 0: // Plan Selection
                 if (input.includes("BASIC") || input.includes("ELITE") || input.includes("PRO")) {
                     asesoriaData.TipoPlan = input;
-                    // Asignamos precios según el plan (ajusta según necesites)
+                    // Pricing based on plan
                     asesoriaData.PrecioMensual = input.includes("PRO") ? 150 : input.includes("ELITE") ? 90 : 50;
 
-                    addMessage(`PLAN ${asesoriaData.TipoPlan} REGISTRADO. EL PRECIO MENSUAL ES DE ${asesoriaData.PrecioMensual}€. ¿DESEAS CONFIRMAR LA INSCRIPCIÓN? (SÍ/NO)`);
+                    addMessage(`${asesoriaData.TipoPlan} PLAN REGISTERED. THE MONTHLY PRICE IS ${asesoriaData.PrecioMensual}€. DO YOU WANT TO CONFIRM THE REGISTRATION? (YES/NO)`);
                     currentStep = 1;
                 } else {
-                    addMessage("POR FAVOR, ELIGE UN PLAN VÁLIDO: BASIC, ELITE O PRO.");
+                    addMessage("PLEASE CHOOSE A VALID PLAN: BASIC, ELITE OR PRO.");
                 }
                 break;
 
-            case 1: // Confirmación y Envío al Backend
-                if (input.includes("SI") || input.includes("SÍ") || input.includes("CONFIRMAR")) {
+            case 1: // Confirmation and Backend Submission
+                if (input.includes("YES") || input.includes("CONFIRM")) {
                     sendToBackend();
                 } else {
-                    addMessage("OPERACIÓN CANCELADA. ¿DIFERENTE PLAN? ESCRIBE EL NOMBRE DEL PLAN.");
+                    addMessage("OPERATION CANCELED. WANT A DIFFERENT PLAN? TYPE THE PLAN NAME.");
                     currentStep = 0;
                 }
                 break;
@@ -64,10 +64,10 @@ export const initAICoach = () => {
     };
 
     const sendToBackend = async () => {
-        addMessage("CONECTANDO CON EL SERVIDOR BIT-IRON... FORJANDO ENTRADA EN DB.");
+        addMessage("CONNECTING TO BIT-IRON SERVER... FORGING DATABASE ENTRY.");
 
         try {
-            // Llamada a tu ruta de Express
+            // Call to your Express route
             const response = await fetch('http://localhost:3000/api/asesorias', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -77,14 +77,14 @@ export const initAICoach = () => {
             const result = await response.json();
 
             if (response.ok) {
-                addMessage(`¡ASESORÍA CREADA! ID DE REGISTRO: ${result.id}. BIENVENIDO A LA ÉLITE.`);
+                addMessage(`ADVISORY CREATED! REGISTRATION ID: ${result.id}. WELCOME TO THE ELITE.`);
                 setTimeout(() => window.location.href = '/', 4000);
             } else {
-                // Manejo de errores basado en tu validator de Express
-                addMessage(`ERROR DE VALIDACIÓN: ${result.detalles ? result.detalles[0].mensaje : 'FALLO EN EL SISTEMA'}`);
+                // Error handling based on your Express validator
+                addMessage(`VALIDATION ERROR: ${result.detalles ? result.detalles[0].mensaje : 'SYSTEM FAILURE'}`);
             }
         } catch (error) {
-            addMessage("ERROR CRÍTICO: NO SE PUDO CONTACTAR CON EL BACKEND.");
+            addMessage("CRITICAL ERROR: COULD NOT CONTACT THE BACKEND.");
         }
     };
 
@@ -96,7 +96,7 @@ export const initAICoach = () => {
         addMessage(text, true);
         chatInput.value = '';
 
-        // Simular tiempo de procesamiento de la IA
+        // Simulate AI processing time
         setTimeout(() => processStep(text), 600);
     });
 };
