@@ -7,6 +7,7 @@
 
 import { ProductCard } from './ProductCard.js';
 import { getProductos } from '../lib/api.js';
+import { addItemToCart } from '../lib/cart.js';
 import { animateCatalogEntrance, animateCardReveal } from '../lib/motion.js';
 
 // Categorías disponibles — "ALL" siempre primero
@@ -172,6 +173,42 @@ export const initShopCatalog = async () => {
 
       applyFilter(btn.dataset.filter);
     });
+  });
+
+  // ── 3.5 Añadir al carrito (Delegación de eventos) ────────────────────
+  grid.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.btn-add-cart');
+    if (!btn) return;
+
+    e.preventDefault(); // Por si acaso
+    e.stopPropagation();
+
+    const productId = btn.dataset.id;
+    const originalText = btn.textContent;
+    btn.textContent = 'ADDING...';
+    btn.disabled = true;
+
+    const success = await addItemToCart(productId);
+    
+    if (success) {
+      btn.textContent = 'ADDED!';
+      btn.classList.add('bg-green-600', 'text-white');
+      btn.classList.remove('bg-black', 'hover:bg-[#e62429]');
+      
+      // Volver a la normalidad tras 2s
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.classList.remove('bg-green-600');
+        btn.classList.add('bg-black', 'hover:bg-[#e62429]');
+      }, 2000);
+    } else {
+      btn.textContent = 'ERROR';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }, 2000);
+    }
   });
 
   // ── 4. Carga datos del backend ───────────────────────────────────────
