@@ -1,11 +1,13 @@
 // src/lib/aichat.js
+import api from './api.js';
+
 
 export const initAICoach = () => {
     // 1. Floating Button Logic (Redirection)
     const trigger = document.querySelector('#ai-coach-trigger');
     if (trigger) {
         trigger.addEventListener('click', () => {
-            window.location.href = '/aichat';
+            window.location.href = '/advisor.html';
         });
     }
 
@@ -16,9 +18,8 @@ export const initAICoach = () => {
 
     if (!chatForm) return;
 
-    // Object following Backend guidelines (IdCliente, TipoPlan, PrecioMensual)
+    // Object following Backend guidelines (TipoPlan, PrecioMensual)
     let asesoriaData = {
-        IdCliente: 1, // In production, this would come from JWT or session
         TipoPlan: '',
         PrecioMensual: 0,
         FechaInicio: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
@@ -67,24 +68,21 @@ export const initAICoach = () => {
         addMessage("CONNECTING TO BIT-IRON SERVER... FORGING DATABASE ENTRY.");
 
         try {
-            // Call to your Express route
-            const response = await fetch('http://localhost:3000/api/asesorias', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(asesoriaData)
-            });
+            // Call to our central API client (handles JWT automatically)
+            const response = await api.post('/asesorias', asesoriaData);
+            const result = response.data;
 
-            const result = await response.json();
-
-            if (response.ok) {
+            if (result) {
                 addMessage(`ADVISORY CREATED! REGISTRATION ID: ${result.id}. WELCOME TO THE ELITE.`);
                 setTimeout(() => window.location.href = '/', 4000);
-            } else {
-                // Error handling based on your Express validator
-                addMessage(`VALIDATION ERROR: ${result.detalles ? result.detalles[0].mensaje : 'SYSTEM FAILURE'}`);
             }
         } catch (error) {
-            addMessage("CRITICAL ERROR: COULD NOT CONTACT THE BACKEND.");
+            if (error.response && error.response.data) {
+                // Error handling based on our Express validator or auth
+                addMessage(`VALIDATION ERROR: ${error.response.data.detalles ? error.response.data.detalles[0].mensaje : error.response.data.error || 'SYSTEM FAILURE'}`);
+            } else {
+                addMessage("CRITICAL ERROR: COULD NOT CONTACT THE BACKEND.");
+            }
         }
     };
 
