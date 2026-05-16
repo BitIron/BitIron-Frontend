@@ -67,35 +67,46 @@ const renderCart = () => {
     subtotal += itemTotal;
 
     html += `
-      <div class="flex flex-col sm:flex-row gap-6 border-b border-black/10 pb-6 group" data-id="${idCarrito}">
-        <!-- Image -->
-        <div class="w-full sm:w-32 h-32 bg-gray-100 flex-shrink-0 border border-black/5 flex items-center justify-center p-2">
-           <!-- Placeholder brutalista si no hay imagen real -->
-           <span class="text-6xl font-black text-black/10 group-hover:text-red-600 transition-colors">${nombre.charAt(0)}</span>
+      <div class="flex flex-col sm:flex-row gap-6 lg:gap-10 border-b border-black/10 pb-8 group" data-id="${idCarrito}">
+        <!-- Image Placeholder -->
+        <div class="w-full sm:w-40 h-40 bg-gray-50 flex-shrink-0 flex items-center justify-center border border-black/5 relative overflow-hidden">
+           <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+           <span class="text-7xl font-black text-black/10 group-hover:text-[#e62429] transition-colors duration-500 font-display relative z-10">${nombre.charAt(0)}</span>
         </div>
         
         <!-- Details -->
-        <div class="flex flex-col flex-grow justify-between">
-          <div class="flex justify-between items-start">
+        <div class="flex flex-col flex-grow justify-between py-2">
+          <div class="flex justify-between items-start gap-4">
             <div>
-              <h3 class="text-xl font-black uppercase tracking-tight">${nombre}</h3>
-              <p class="text-[10px] font-black uppercase tracking-[0.2em] text-black/40 mt-1">${precio.toFixed(2)} €</p>
+              <h3 class="text-2xl lg:text-3xl font-black uppercase tracking-tighter leading-none group-hover:text-[#e62429] transition-colors">${nombre}</h3>
+              <p class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40 mt-3">${precio.toFixed(2)} €</p>
             </div>
-            <button class="btn-remove text-black/20 hover:text-[#e62429] transition-colors" data-id="${idCarrito}" title="Remove Item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            <button class="btn-remove text-black/20 hover:text-[#e62429] hover:bg-red-50 p-3 rounded-full transition-all" data-id="${idCarrito}" title="Remove Item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
             </button>
           </div>
           
-          <div class="flex justify-between items-center mt-4">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end mt-6 lg:mt-0 gap-4">
             <!-- Quantity Control -->
-            <div class="flex items-center border-2 border-black">
-              <button class="btn-minus px-3 py-1 hover:bg-black hover:text-white transition-colors" data-id="${idCarrito}" data-qty="${cantidad}">-</button>
-              <span class="w-10 text-center font-bold text-sm">${cantidad}</span>
-              <button class="btn-plus px-3 py-1 hover:bg-black hover:text-white transition-colors" data-id="${idCarrito}" data-qty="${cantidad}">+</button>
+            <div class="flex flex-col gap-2">
+              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-black/30">QUANTITY</span>
+              <div class="flex items-center border border-black w-fit">
+                <button class="btn-minus px-4 py-2 hover:bg-black hover:text-white transition-colors" data-id="${idCarrito}" data-qty="${cantidad}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+                <span class="w-12 text-center font-black text-lg">${cantidad}</span>
+                <button class="btn-plus px-4 py-2 hover:bg-black hover:text-white transition-colors" data-id="${idCarrito}" data-qty="${cantidad}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+              </div>
             </div>
+            
             <!-- Item Total -->
-            <div class="text-lg font-black tracking-tight text-red-600">
-              ${itemTotal.toFixed(2)} €
+            <div class="text-right">
+              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-black/30 block mb-1">TOTAL</span>
+              <div class="text-2xl font-black tracking-tighter">
+                ${itemTotal.toFixed(2)} €
+              </div>
             </div>
           </div>
         </div>
