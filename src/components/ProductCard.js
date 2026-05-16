@@ -5,7 +5,7 @@
 
 export const ProductCard = (product) => {
   // Normalizamos las propiedades para soportar tanto minúsculas (JS) como Mayúsculas (SQL/Backend)
-  const id          = product.id          || product.ID;
+  const id          = product.id          || product.ID          || product.IdProducto;
   const nombre      = product.nombre      || product.Nombre;
   const precio      = product.precio      || product.Precio;
   const categoria   = product.categoria   || product.Categoria;
@@ -68,9 +68,9 @@ export const ProductCard = (product) => {
             ${formattedPrice}<span class="text-xs text-black/40 ml-1">€</span>
           </span>
 
-          <span class="text-[9px] font-black uppercase tracking-[0.2em] text-[#e62429]">
-            View Details
-          </span>
+          <button class="btn-add-cart text-[9px] font-black uppercase tracking-[0.2em] text-white bg-black hover:bg-[#e62429] px-3 py-2 transition-colors duration-300" data-id="${id}">
+            ADD TO CART
+          </button>
         </div>
 
       </div>
