@@ -43,6 +43,26 @@ export const getProductoById = async (id) => {
   return response.data;
 };
 
+// ── CARRITO DE COMPRAS ────────────────────────────────────────────────────────
+
+/**
+ * GET /api/carrito
+ * Devuelve el carrito del usuario autenticado.
+ */
+export const getCarrito = async () => {
+  const response = await api.get('/carrito');
+  return response.data;
+};
+
+/**
+ * POST /api/carrito
+ * Añade un producto al carrito del usuario.
+ */
+export const addProductoCarrito = async (productoId, cantidad = 1) => {
+  const response = await api.post('/carrito', { IdProducto: productoId, Cantidad: cantidad });
+  return response.data;
+};
+
 // ── AUTHENTICATION ──────────────────────────────────────────────────────────
 
 export const setToken = (token) => {
