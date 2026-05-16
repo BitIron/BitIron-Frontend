@@ -1,8 +1,9 @@
 // src/lib/cart.js
-import { getCarrito, addProductoCarrito, getToken } from './api.js';
+import { getCarrito, addProductoCarrito, updateCantidadCarrito, removeProductoCarrito, getToken } from './api.js';
 
 // Estado local
 let cartItemsCount = 0;
+let cartItems = []; // Array completo de productos en el carrito
 
 /**
  * Notifica a la interfaz (Navbar) que el carrito ha cambiado.
@@ -34,13 +35,20 @@ export const initCart = async () => {
 
   try {
     const data = await getCarrito();
-    // Dependiendo de cómo devuelva el backend el carrito (array o con total items)
-    // Asumimos que data.items es un array de productos en el carrito.
-    cartItemsCount = data?.items?.reduce((total, item) => total + item.cantidad, 0) || data?.length || 0;
+    // Guardamos el array original de items (si viene en data o data.items)
+    cartItems = Array.isArray(data) ? data : (data?.items || []);
+    cartItemsCount = cartItems.reduce((total, item) => total + (item.Cantidad || item.cantidad || 1), 0);
     notifyCartUpdate();
   } catch (err) {
     console.error('Failed to init cart state:', err);
   }
+};
+
+/**
+ * Obtiene los datos locales del carrito (ideal para la página de Checkout)
+ */
+export const getCartData = () => {
+  return cartItems;
 };
 
 /**
@@ -56,12 +64,39 @@ export const addItemToCart = async (productoId) => {
 
   try {
     await addProductoCarrito(productoId, 1);
-    // Para simplificar, incrementamos localmente. En una app robusta, re-fetchearíamos o confiaríamos en la respuesta
-    cartItemsCount += 1;
-    notifyCartUpdate();
+    // Para simplificar, recargamos el carrito desde el servidor para tener los IDs y totales correctos
+    await initCart();
     return true;
   } catch (err) {
     console.error('Failed to add item to cart:', err);
+    return false;
+  }
+};
+
+/**
+ * Actualiza la cantidad de un producto y refresca el estado
+ */
+export const updateItemQuantity = async (idCarrito, cantidad) => {
+  try {
+    await updateCantidadCarrito(idCarrito, cantidad);
+    await initCart();
+    return true;
+  } catch (err) {
+    console.error('Failed to update cart item quantity:', err);
+    return false;
+  }
+};
+
+/**
+ * Elimina un producto del carrito y refresca el estado
+ */
+export const removeItemFromCart = async (idCarrito) => {
+  try {
+    await removeProductoCarrito(idCarrito);
+    await initCart();
+    return true;
+  } catch (err) {
+    console.error('Failed to remove item from cart:', err);
     return false;
   }
 };
