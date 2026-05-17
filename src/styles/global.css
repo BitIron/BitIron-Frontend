@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-white text-black overflow-x-hidden;
+    @apply bg-white text-black dark:bg-black dark:text-white overflow-x-hidden transition-colors duration-300;
     font-family: 'Inter', system-ui, sans-serif;
   }
 
@@ -19,6 +19,10 @@
 
   ::-webkit-scrollbar-track {
     background: #fff;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #000;
   }
 
   ::-webkit-scrollbar-thumb {
