@@ -1,5 +1,10 @@
 // src/auth.js
 import './styles/global.css';
+import { initTheme } from './lib/theme.js';
+
+// Inicializar tema inmediatamente
+initTheme();
+
 import { MainLayout } from './layouts/MainLayout.js';
 import { login, register, setToken } from './lib/api.js';
 
@@ -8,11 +13,11 @@ const initAuthPage = () => {
 
   // The HTML structure with toggleable forms
   const content = `
-    <section class="min-h-[85vh] flex items-center justify-center px-4 py-24 bg-white relative overflow-hidden">
+    <section class="min-h-[85vh] flex items-center justify-center px-4 py-24 bg-white dark:bg-black text-black dark:text-white relative overflow-hidden transition-colors duration-300">
       
       <!-- Decoraciones Brutalistas: Silueta de Mancuerna -->
       <div class="absolute top-10 left-[-4rem] w-[400px] h-[400px] pointer-events-none select-none">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-black opacity-[0.03] -rotate-45">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-black dark:text-white opacity-[0.03] dark:opacity-[0.015] -rotate-45">
           <!-- Center bar -->
           <rect x="7" y="10.5" width="10" height="3" />
           <!-- Left plates -->
@@ -28,17 +33,17 @@ const initAuthPage = () => {
       <div class="absolute bottom-10 right-10 w-64 h-64 border-4 border-[#e62429] opacity-20 rotate-12 pointer-events-none"></div>
       <div class="absolute bottom-52 right-48 w-32 h-32 border-4 border-[#e62429] opacity-30 rotate-12 pointer-events-none"></div>
 
-      <div class="max-w-lg w-full border border-black/10 p-10 sm:p-14 shadow-2xl bg-white relative z-10">
+      <div class="max-w-lg w-full border border-black/10 dark:border-white/10 p-10 sm:p-14 shadow-2xl bg-white dark:bg-black relative z-10 transition-colors duration-300">
         
         <div class="text-center mb-10">
           <h1 class="text-5xl font-black uppercase tracking-tighter mb-2 leading-none">Access <span class="text-[#e62429]">Elite</span></h1>
-          <p class="text-black/40 text-[10px] font-black uppercase tracking-[0.3em]">BitIron Authentication Forge</p>
+          <p class="text-black/40 dark:text-white/40 text-[10px] font-black uppercase tracking-[0.3em]">BitIron Authentication Forge</p>
         </div>
 
         <!-- Toggle Tabs -->
-        <div class="flex border-b-2 border-black/10 mb-8">
-          <button id="tab-login" class="flex-1 py-4 text-xs font-black uppercase tracking-widest border-b-2 border-black transition-colors">Login</button>
-          <button id="tab-register" class="flex-1 py-4 text-xs font-black uppercase tracking-widest border-b-2 border-transparent text-black/40 hover:text-black transition-colors">Register</button>
+        <div class="flex border-b-2 border-black/10 dark:border-white/10 mb-8">
+          <button id="tab-login" class="flex-1 py-4 text-xs font-black uppercase tracking-widest border-b-2 border-black dark:border-white transition-colors">Login</button>
+          <button id="tab-register" class="flex-1 py-4 text-xs font-black uppercase tracking-widest border-b-2 border-transparent text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors">Register</button>
         </div>
         
         <!-- Error Alert -->
@@ -50,14 +55,14 @@ const initAuthPage = () => {
           <!-- LOGIN FORM -->
           <form id="form-login" class="absolute inset-0 transition-opacity duration-300 opacity-100 z-10 flex flex-col gap-6">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black/60">Email Protocol</label>
-              <input type="email" id="login-email" required class="w-full bg-black/5 border border-black/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white transition-all uppercase" placeholder="ATHLETE@DOMAIN.COM" />
+              <label class="text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60">Email Protocol</label>
+              <input type="email" id="login-email" required class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white dark:focus:bg-black transition-all uppercase text-black dark:text-white" placeholder="ATHLETE@DOMAIN.COM" />
             </div>
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black/60">Access Code</label>
-              <input type="password" id="login-password" required class="w-full bg-black/5 border border-black/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white transition-all" placeholder="••••••••" />
+              <label class="text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60">Access Code</label>
+              <input type="password" id="login-password" required class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white dark:focus:bg-black transition-all text-black dark:text-white" placeholder="••••••••" />
             </div>
-            <button type="submit" id="btn-login" class="w-full bg-black text-white py-5 mt-4 text-sm font-black uppercase tracking-[0.3em] hover:bg-[#e62429] transition-all hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none flex justify-center items-center gap-2">
+            <button type="submit" id="btn-login" class="w-full bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white py-5 mt-4 text-sm font-black uppercase tracking-[0.3em] hover:bg-[#e62429] dark:hover:bg-[#e62429] dark:hover:text-white transition-all hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-y-1 active:translate-x-1 active:shadow-none flex justify-center items-center gap-2">
               <span>Initiate Link</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
@@ -66,18 +71,18 @@ const initAuthPage = () => {
           <!-- REGISTER FORM -->
           <form id="form-register" class="absolute inset-0 transition-opacity duration-300 opacity-0 pointer-events-none flex flex-col gap-5">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black/60">Full Designation</label>
-              <input type="text" id="reg-name" required class="w-full bg-black/5 border border-black/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white transition-all uppercase" placeholder="JOHN DOE" />
+              <label class="text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60">Full Designation</label>
+              <input type="text" id="reg-name" required class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white dark:focus:bg-black transition-all uppercase text-black dark:text-white" placeholder="JOHN DOE" />
             </div>
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black/60">Email Protocol</label>
-              <input type="email" id="reg-email" required class="w-full bg-black/5 border border-black/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white transition-all uppercase" placeholder="ATHLETE@DOMAIN.COM" />
+              <label class="text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60">Email Protocol</label>
+              <input type="email" id="reg-email" required class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white dark:focus:bg-black transition-all uppercase text-black dark:text-white" placeholder="ATHLETE@DOMAIN.COM" />
             </div>
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black/60">Create Access Code</label>
-              <input type="password" id="reg-password" required minlength="6" class="w-full bg-black/5 border border-black/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white transition-all" placeholder="••••••••" />
+              <label class="text-[10px] font-black uppercase tracking-widest text-black/60 dark:text-white/60">Create Access Code</label>
+              <input type="password" id="reg-password" required minlength="6" class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 text-sm font-bold outline-none focus:border-[#e62429] focus:bg-white dark:focus:bg-black transition-all text-black dark:text-white" placeholder="••••••••" />
             </div>
-            <button type="submit" id="btn-register" class="w-full bg-white text-black border-2 border-black py-5 mt-2 text-sm font-black uppercase tracking-[0.3em] hover:bg-black hover:text-white transition-all flex justify-center items-center gap-2">
+            <button type="submit" id="btn-register" class="w-full bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white py-5 mt-2 text-sm font-black uppercase tracking-[0.3em] hover:bg-[#e62429] dark:hover:bg-[#e62429] dark:hover:text-white transition-all flex justify-center items-center gap-2">
               <span>Forge Account</span>
             </button>
           </form>
@@ -104,11 +109,11 @@ const initAuthPage = () => {
 
   // Toggle Tabs Logic
   tabLogin.addEventListener('click', () => {
-    tabLogin.classList.replace('border-transparent', 'border-black');
-    tabLogin.classList.remove('text-black/40');
+    tabLogin.classList.remove('border-transparent', 'text-black/40', 'dark:text-white/40');
+    tabLogin.classList.add('border-black', 'dark:border-white');
     
-    tabRegister.classList.replace('border-black', 'border-transparent');
-    tabRegister.classList.add('text-black/40');
+    tabRegister.classList.remove('border-black', 'dark:border-white');
+    tabRegister.classList.add('border-transparent', 'text-black/40', 'dark:text-white/40');
 
     formLogin.classList.replace('opacity-0', 'opacity-100');
     formLogin.classList.remove('pointer-events-none', 'z-0');
@@ -121,11 +126,11 @@ const initAuthPage = () => {
   });
 
   tabRegister.addEventListener('click', () => {
-    tabRegister.classList.replace('border-transparent', 'border-black');
-    tabRegister.classList.remove('text-black/40');
+    tabRegister.classList.remove('border-transparent', 'text-black/40', 'dark:text-white/40');
+    tabRegister.classList.add('border-black', 'dark:border-white');
     
-    tabLogin.classList.replace('border-black', 'border-transparent');
-    tabLogin.classList.add('text-black/40');
+    tabLogin.classList.remove('border-black', 'dark:border-white');
+    tabLogin.classList.add('border-transparent', 'text-black/40', 'dark:text-white/40');
 
     formRegister.classList.replace('opacity-0', 'opacity-100');
     formRegister.classList.remove('pointer-events-none', 'z-0');

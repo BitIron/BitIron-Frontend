@@ -8,7 +8,7 @@ import { Footer } from '../components/Footer.js';
  */
 export const MainLayout = (content) => {
   return `
-    <div class="min-h-screen flex flex-col bg-white">
+    <div class="min-h-screen flex flex-col bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
       ${Navbar()}
       <main class="flex-grow">
         ${content}
