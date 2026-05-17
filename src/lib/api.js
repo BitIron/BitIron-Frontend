@@ -101,10 +101,58 @@ export const login = async (email, password) => {
 };
 
 export const register = async (nombreCompleto, email, password) => {
-  // Nota: El backend tiene la ruta '/auth/registro' (o register? Revisemos authRoutes.js si es registro)
-  // El controlador se llama 'registro'. Asumiré que la ruta es '/auth/registro'
   const response = await api.post('/auth/registro', { nombreCompleto, email, password });
   return response.data;
+};
+
+export const getPerfil = async () => {
+  const response = await api.get('/auth/perfil');
+  return response.data.usuario || response.data;
+};
+
+export const updatePerfil = async (nombreCompleto, objetivoFitness) => {
+  const response = await api.put('/auth/perfil', { nombreCompleto, objetivoFitness });
+  return response.data;
+};
+
+export const getPedidosCliente = async (idCliente) => {
+  const response = await api.get(`/pedidos/cliente/${idCliente}`);
+  return response.data;
+};
+
+// ── ASESORIAS / PLANES DE ENTRENAMIENTO ──────────────────────────────────────────
+
+export const getAsesoriasHistorial = async () => {
+  const response = await api.get('/planes/historial');
+  return response.data;
+};
+
+export const createAsesoria = async (asesoriaData) => {
+  const response = await api.post('/asesorias', asesoriaData);
+  return response.data;
+};
+
+export const updateAsesoria = async (id, asesoriaData) => {
+  const response = await api.put(`/asesorias/${id}`, asesoriaData);
+  return response.data;
+};
+
+export const deleteAsesoria = async (id) => {
+  const response = await api.delete(`/asesorias/${id}`);
+  return response.data;
+};
+
+export const decodeToken = (token) => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
 };
 
 export default api;
