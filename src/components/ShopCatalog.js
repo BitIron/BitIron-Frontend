@@ -84,6 +84,25 @@ export const ShopCatalog = () => `
     <!-- ── Grid: flex-1 para ocupar el espacio restante, con scroll interno ── -->
     <div class="flex-1 overflow-y-auto max-w-7xl w-full mx-auto mt-6 pb-8">
 
+      <!-- Sleek Brutalist Announcement Ticker/Banner -->
+      <div class="mb-8 border-4 border-black bg-[#e62429] text-white p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Stripe patterns -->
+        <div class="absolute inset-y-0 right-0 w-1/3 bg-black opacity-10 skew-x-12 pointer-events-none"></div>
+        <div class="flex items-center gap-4">
+          <div class="bg-black text-[#e62429] px-3 py-1 text-xs font-black uppercase tracking-widest border-2 border-black">
+            LAUNCH OFFER
+          </div>
+          <div>
+            <h4 class="text-xl md:text-2xl font-black uppercase tracking-tighter italic text-black">FUEL THE LEGACY: 20% OFF</h4>
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">LIMITED TIME FOR THE FIRST 100 ATHLETES</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 bg-black text-white px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(230,36,41,1)]">
+          <span class="text-[10px] font-black uppercase tracking-widest text-[#e62429]">USE CODE:</span>
+          <span class="text-xl font-black tracking-widest select-all cursor-pointer hover:text-[#e62429] transition-colors font-mono" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); alert('PROMO CODE ATHLETE20 COPIED! USE IT AT CHECKOUT.');">ATHLETE20</span>
+        </div>
+      </div>
+
       <!-- Grid de productos -->
       <div
         id="products-grid"
