@@ -41,7 +41,7 @@ const TICKER_TEXT = [
 export const PhilosophySection = () => `
   <section
     id="philosophy"
-    class="relative w-full bg-white flex flex-col justify-between overflow-hidden"
+    class="relative w-full bg-white dark:bg-black flex flex-col justify-between overflow-hidden transition-colors duration-300"
     style="height: 100dvh; min-height: 100vh;"
   >
 
@@ -49,8 +49,8 @@ export const PhilosophySection = () => `
     <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#e62429] to-transparent opacity-40"></div>
 
     <!-- ── TICKER MARQUEE ──────────────────────────────────────────────── -->
-    <div class="w-full overflow-hidden border-b border-black/5 py-4 flex-shrink-0 mt-16">
-      <div class="flex whitespace-nowrap animate-marquee text-[11px] font-black tracking-[0.3em] uppercase text-black/40">
+    <div class="w-full overflow-hidden border-b border-black/5 dark:border-white/5 py-4 flex-shrink-0 mt-16">
+      <div class="flex whitespace-nowrap animate-marquee text-[11px] font-black tracking-[0.3em] uppercase text-black/40 dark:text-white/40">
         ${TICKER_TEXT}${TICKER_TEXT}
       </div>
     </div>
@@ -66,7 +66,7 @@ export const PhilosophySection = () => `
 
         <!-- La frase brutal -->
         <h2
-          class="font-black uppercase text-black leading-[0.9] tracking-tighter"
+          class="font-black uppercase text-black dark:text-white leading-[0.9] tracking-tighter"
           style="font-size: clamp(2.8rem, 8vw, 110px);"
         >
           Not for<br/>
@@ -76,7 +76,7 @@ export const PhilosophySection = () => `
         </h2>
 
         <!-- Descripción corta debajo -->
-        <p class="mt-8 text-black/40 text-xs sm:text-sm font-bold uppercase tracking-[0.25em] max-w-xl mx-auto leading-relaxed">
+        <p class="mt-8 text-black/40 dark:text-white/40 text-xs sm:text-sm font-bold uppercase tracking-[0.25em] max-w-xl mx-auto leading-relaxed">
           Supplements engineered with science. Plans built by AI.
           Results measured in the mirror.
         </p>
@@ -85,21 +85,21 @@ export const PhilosophySection = () => `
     </div>
 
     <!-- ── 3 PILARES ──────────────────────────────────────────────────── -->
-    <div class="w-full border-t border-black/5 flex-shrink-0">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/5">
+    <div class="w-full border-t border-black/5 dark:border-white/5 flex-shrink-0">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/5 dark:divide-white/5">
 
         ${PILLARS.map(({ id, icon, label, title, description }) => `
           <div
             id="${id}"
             class="group flex flex-col gap-3 px-8 py-8 opacity-0
-                   transition-colors duration-300 hover:bg-black/[0.02] cursor-default"
+                   transition-colors duration-300 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] cursor-default"
           >
             <div class="text-[#e62429]">${icon}</div>
-            <p class="text-black/30 text-[9px] font-black uppercase tracking-[0.35em]">${label}</p>
-            <h3 class="font-black uppercase text-black leading-tight text-lg sm:text-xl">
+            <p class="text-black/30 dark:text-white/30 text-[9px] font-black uppercase tracking-[0.35em]">${label}</p>
+            <h3 class="font-black uppercase text-black dark:text-white leading-tight text-lg sm:text-xl">
               ${title.replace('\n', '<br/>')}
             </h3>
-            <p class="text-black/40 text-xs leading-relaxed max-w-xs">${description}</p>
+            <p class="text-black/40 dark:text-white/40 text-xs leading-relaxed max-w-xs">${description}</p>
           </div>
         `).join('')}
 
@@ -107,7 +107,7 @@ export const PhilosophySection = () => `
     </div>
 
     <!-- Línea decorativa inferior -->
-    <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/10 dark:via-white/10 to-transparent"></div>
 
   </section>
 `;
