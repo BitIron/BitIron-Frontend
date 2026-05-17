@@ -33,7 +33,7 @@ const SkeletonCard = () => `
 export const ShopCatalog = () => `
   <section
     id="catalog"
-    class="relative w-full bg-white flex flex-col px-6 sm:px-10 lg:px-16 overflow-hidden"
+    class="relative w-full bg-white dark:bg-black text-black dark:text-white flex flex-col px-6 sm:px-10 lg:px-16 overflow-hidden transition-colors duration-300"
     style="height: 100dvh; min-height: 100vh;"
   >
 
@@ -51,16 +51,16 @@ export const ShopCatalog = () => `
 
         <!-- Título + contador -->
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <h2 class="font-black uppercase text-black leading-none tracking-tighter"
+          <h2 class="font-black uppercase text-black dark:text-white leading-none tracking-tighter"
               style="font-size: clamp(2.8rem, 7vw, 90px);">
             The Arsenal
           </h2>
-          <p id="product-count" class="text-black/30 text-xs font-bold uppercase tracking-[0.3em] pb-1">
+          <p id="product-count" class="text-black/30 dark:text-white/30 text-xs font-bold uppercase tracking-[0.3em] pb-1">
             Loading...
           </p>
         </div>
 
-        <div class="mt-4 h-[1px] bg-black/10"></div>
+        <div class="mt-4 h-[1px] bg-black/10 dark:bg-white/10"></div>
       </div>
 
       <!-- ── Filtros ──────────────────────────────────────────────────── -->
@@ -71,7 +71,7 @@ export const ShopCatalog = () => `
                    border transition-all duration-300 cursor-pointer
                    ${i === 0
                      ? 'border-[#e62429] text-[#e62429] bg-[#e62429]/10'
-                     : 'border-black/15 text-black/40 bg-transparent hover:border-black/60 hover:text-black/80'}"
+                     : 'border-black/15 dark:border-white/15 text-black/40 dark:text-white/40 bg-transparent hover:border-black/60 dark:hover:border-white/60 hover:text-black/80 dark:hover:text-white/80'}"
             data-filter="${cat.toLowerCase() === 'all' ? 'all' : cat.toLowerCase()}"
             aria-pressed="${i === 0}"
           >
@@ -85,7 +85,7 @@ export const ShopCatalog = () => `
     <div class="flex-1 overflow-y-auto max-w-7xl w-full mx-auto mt-6 pb-8">
 
       <!-- Sleek Brutalist Announcement Ticker/Banner -->
-      <div class="mb-8 border-4 border-black bg-[#e62429] text-white p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="mb-8 border-4 border-black dark:border-white bg-[#e62429] p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
         <!-- Stripe patterns -->
         <div class="absolute inset-y-0 right-0 w-1/3 bg-black opacity-10 skew-x-12 pointer-events-none"></div>
         <div class="flex items-center gap-4">
@@ -94,7 +94,7 @@ export const ShopCatalog = () => `
           </div>
           <div>
             <h4 class="text-xl md:text-2xl font-black uppercase tracking-tighter italic text-black">FUEL THE LEGACY: 20% OFF</h4>
-            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">LIMITED TIME FOR THE FIRST 100 ATHLETES</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-black/70">LIMITED TIME FOR THE FIRST 100 ATHLETES</p>
           </div>
         </div>
         <div class="flex items-center gap-3 bg-black text-white px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(230,36,41,1)]">
@@ -114,13 +114,13 @@ export const ShopCatalog = () => `
       <!-- Estado vacío -->
       <div id="catalog-empty" class="hidden text-center py-24">
         <p class="text-[#e62429] font-black uppercase tracking-[0.3em] text-sm mb-2">No products found</p>
-        <p class="text-black/30 text-xs uppercase tracking-widest">Try a different filter</p>
+        <p class="text-black/30 dark:text-white/30 text-xs uppercase tracking-widest">Try a different filter</p>
       </div>
 
       <!-- Estado error -->
       <div id="catalog-error" class="hidden text-center py-24">
-        <p class="text-black/30 font-black uppercase tracking-[0.3em] text-sm mb-2">Backend offline</p>
-        <p class="text-black/20 text-xs uppercase tracking-widest">Check connection to API</p>
+        <p class="text-black/30 dark:text-white/30 font-black uppercase tracking-[0.3em] text-sm mb-2">Backend offline</p>
+        <p class="text-black/20 dark:text-white/20 text-xs uppercase tracking-widest">Check connection to API</p>
       </div>
 
     </div>
@@ -183,11 +183,11 @@ export const initShopCatalog = async () => {
       // Estilos activo/inactivo
       filterBtns.forEach(b => {
         b.classList.remove('border-[#e62429]', 'text-[#e62429]', 'bg-[#e62429]/10');
-        b.classList.add('border-black/15', 'text-black/40');
+        b.classList.add('border-black/15', 'dark:border-white/15', 'text-black/40', 'dark:text-white/40');
         b.setAttribute('aria-pressed', 'false');
       });
       btn.classList.add('border-[#e62429]', 'text-[#e62429]', 'bg-[#e62429]/10');
-      btn.classList.remove('border-black/15', 'text-black/40');
+      btn.classList.remove('border-black/15', 'dark:border-white/15', 'text-black/40', 'dark:text-white/40');
       btn.setAttribute('aria-pressed', 'true');
 
       applyFilter(btn.dataset.filter);

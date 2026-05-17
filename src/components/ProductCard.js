@@ -23,14 +23,14 @@ export const ProductCard = (product) => {
 
   return `
     <article
-      class="product-card group relative flex flex-col bg-white border border-black/8 overflow-hidden cursor-pointer
-             transition-all duration-500 hover:border-[#e62429]/40 hover:-translate-y-1 shadow-sm hover:shadow-lg"
+      class="product-card group relative flex flex-col bg-white dark:bg-black border border-black/8 dark:border-white/10 overflow-hidden cursor-pointer
+             transition-all duration-500 hover:border-[#e62429]/40 dark:hover:border-[#e62429]/40 hover:-translate-y-1 shadow-sm hover:shadow-lg text-black dark:text-white"
       data-id="${id}"
       data-category="${categoria || 'all'}"
       style="opacity: 0;"
     >
       <!-- Imagen del producto -->
-      <div class="relative overflow-hidden aspect-square bg-[#f4f4f4]">
+      <div class="relative overflow-hidden aspect-square bg-[#f4f4f4] dark:bg-zinc-900">
         <img
           src="${imgSrc}"
           alt="${nombre}"
@@ -49,26 +49,26 @@ export const ProductCard = (product) => {
       </div>
 
       <!-- Info del producto -->
-      <div class="flex flex-col flex-grow p-4 gap-2 bg-white">
+      <div class="flex flex-col flex-grow p-4 gap-2 bg-white dark:bg-black transition-colors duration-300">
 
         <!-- Nombre -->
-        <h3 class="font-black uppercase text-black text-sm tracking-tight leading-tight line-clamp-2">
+        <h3 class="font-black uppercase text-black dark:text-white text-sm tracking-tight leading-tight line-clamp-2">
           ${nombre}
         </h3>
 
         <!-- Descripción corta (opcional) -->
         ${descripcion ? `
-        <p class="text-black/40 text-[11px] leading-relaxed line-clamp-2">
+        <p class="text-black/40 dark:text-white/40 text-[11px] leading-relaxed line-clamp-2">
           ${descripcion}
         </p>` : ''}
 
         <!-- Precio -->
-        <div class="flex items-center justify-between mt-auto pt-3 border-t border-black/8">
-          <span class="font-black text-black text-lg tracking-tight">
-            ${formattedPrice}<span class="text-xs text-black/40 ml-1">€</span>
+        <div class="flex items-center justify-between mt-auto pt-3 border-t border-black/8 dark:border-white/10">
+          <span class="font-black text-black dark:text-white text-lg tracking-tight">
+            ${formattedPrice}<span class="text-xs text-black/40 dark:text-white/40 ml-1">€</span>
           </span>
 
-          <button class="btn-add-cart text-[9px] font-black uppercase tracking-[0.2em] text-white bg-black hover:bg-[#e62429] px-3 py-2 transition-colors duration-300" data-id="${id}">
+          <button class="btn-add-cart text-[9px] font-black uppercase tracking-[0.2em] text-white dark:text-black bg-black dark:bg-white hover:bg-[#e62429] dark:hover:bg-[#e62429] dark:hover:text-white px-3 py-2 transition-all duration-300" data-id="${id}">
             ADD TO CART
           </button>
         </div>
