@@ -4,6 +4,8 @@ import { Footer } from './components/Footer.js';
 import { getCartData, updateItemQuantity, removeItemFromCart, initCart } from './lib/cart.js';
 import { getToken } from './lib/api.js';
 
+let appliedDiscount = 0; // 0.20 para 20% de descuento
+
 // Prevenir FOUC
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.remove("fouc-prevent");
@@ -24,16 +26,76 @@ const initCheckout = async () => {
   await initCart();
   renderCart();
 
+  // 4.5 Configurar código promocional
+  const promoInput = document.getElementById('promo-input');
+  const promoBtn = document.getElementById('btn-promo');
+  
+  if (promoBtn && promoInput) {
+    promoBtn.addEventListener('click', () => {
+      const code = promoInput.value.trim().toUpperCase();
+      if (code === 'ATHLETE20') {
+        if (appliedDiscount > 0) {
+          alert('PROMO CODE ALREADY APPLIED.');
+          return;
+        }
+        appliedDiscount = 0.20;
+        
+        // Recalcular el summary
+        const items = getCartData();
+        let subtotal = 0;
+        items.forEach(item => {
+          const precio = parseFloat(item.Precio || item.precio || 0);
+          const cantidad = parseInt(item.Cantidad || item.cantidad || 1);
+          subtotal += precio * cantidad;
+        });
+        updateSummary(subtotal);
+        
+        // Desactivar el input/btn
+        promoInput.disabled = true;
+        promoBtn.disabled = true;
+        promoBtn.textContent = 'APPLIED';
+        promoBtn.classList.remove('bg-[#e62429]');
+        promoBtn.classList.add('bg-green-600');
+        
+        alert('PROMO CODE APPLIED! 20% DISCOUNT GRANTED.');
+      } else {
+        alert('INVALID PROMO CODE.');
+      }
+    });
+  }
+
   // 4. Configurar botón final de pago
-  document.getElementById('btn-checkout').addEventListener('click', () => {
+  document.getElementById('btn-checkout').addEventListener('click', async () => {
     const items = getCartData();
     if (items.length === 0) {
       alert("YOUR ARSENAL IS EMPTY.");
       return;
     }
-    // Placeholder para la pasarela de pago / creación de pedido
-    alert("PAYMENT GATEWAY COMING SOON... \nProceeding to dummy payment.");
-    // Aquí iría la redirección a Stripe o la llamada a POST /api/pedidos
+    
+    // UI Feedback: Simular procesamiento
+    const btn = document.getElementById('btn-checkout');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="animate-pulse">PROCESSING SECURE PAYMENT...</span>';
+    
+    // Esperar 2.5 segundos para dar sensación de procesamiento real
+    setTimeout(async () => {
+      // Limpiar el carrito (borrar item por item para sincronizar DB)
+      for (const item of items) {
+        const idCarrito = item.IdCarrito || item.idCarrito;
+        await removeItemFromCart(idCarrito);
+      }
+      
+      // UI Feedback: Éxito
+      btn.classList.remove('bg-[#e62429]');
+      btn.classList.add('bg-green-600');
+      btn.innerHTML = 'ORDER CONFIRMED! WELCOME TO THE ELITE.';
+      
+      // Redirigir al inicio después de 3 segundos
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
+      
+    }, 2500);
   });
 };
 
@@ -120,8 +182,37 @@ const renderCart = () => {
 };
 
 const updateSummary = (subtotal) => {
+  const discountAmount = subtotal * appliedDiscount;
+  const total = subtotal - discountAmount;
+
   document.getElementById('summary-subtotal').textContent = `${subtotal.toFixed(2)} €`;
-  document.getElementById('summary-total').textContent = `${subtotal.toFixed(2)} €`;
+  
+  // Mostrar fila de descuento si está aplicado
+  const discountRow = document.getElementById('summary-discount-row');
+  if (appliedDiscount > 0) {
+    if (!discountRow) {
+      // Inyectar fila de descuento dinámicamente antes del total
+      const totalRow = document.getElementById('summary-total').parentElement;
+      const row = document.createElement('div');
+      row.id = 'summary-discount-row';
+      row.className = 'flex justify-between items-center text-red-600 font-black';
+      row.innerHTML = `
+        <span>PROMO DISCOUNT (20%)</span>
+        <span>-${discountAmount.toFixed(2)} €</span>
+      `;
+      totalRow.parentNode.insertBefore(row, totalRow);
+    } else {
+      discountRow.innerHTML = `
+        <span>PROMO DISCOUNT (20%)</span>
+        <span>-${discountAmount.toFixed(2)} €</span>
+      `;
+      discountRow.classList.remove('hidden');
+    }
+  } else if (discountRow) {
+    discountRow.classList.add('hidden');
+  }
+
+  document.getElementById('summary-total').textContent = `${total.toFixed(2)} €`;
 };
 
 const setupItemEvents = () => {
