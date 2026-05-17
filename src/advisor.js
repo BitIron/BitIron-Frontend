@@ -1,5 +1,10 @@
 // src/advisor.js
 import './styles/global.css';
+import { initTheme } from './lib/theme.js';
+
+// Inicializar tema inmediatamente
+initTheme();
+
 import { MainLayout } from './layouts/MainLayout.js';
 import { AIchatPage } from './pages/AIchat.js';
 import { initAICoach } from './lib/aichat.js';
