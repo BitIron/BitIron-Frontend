@@ -63,6 +63,24 @@ export const addProductoCarrito = async (productoId, cantidad = 1) => {
   return response.data;
 };
 
+/**
+ * PUT /api/carrito/:id
+ * Actualiza la cantidad de un producto en el carrito (usa IdCarrito)
+ */
+export const updateCantidadCarrito = async (idCarrito, cantidad) => {
+  const response = await api.put(`/carrito/${idCarrito}`, { Cantidad: cantidad });
+  return response.data;
+};
+
+/**
+ * DELETE /api/carrito/:id
+ * Elimina un producto del carrito (usa IdCarrito)
+ */
+export const removeProductoCarrito = async (idCarrito) => {
+  const response = await api.delete(`/carrito/${idCarrito}`);
+  return response.data;
+};
+
 // ── AUTHENTICATION ──────────────────────────────────────────────────────────
 
 export const setToken = (token) => {
