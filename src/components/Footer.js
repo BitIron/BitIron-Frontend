@@ -1,6 +1,9 @@
 // src/components/Footer.js
+import { login, setToken } from '../lib/api.js';
 
 export const Footer = () => {
+  const isLoggedIn = !!localStorage.getItem('bitiron_token');
+
   return `
     <footer class="bg-white dark:bg-black text-black dark:text-white border-t-4 border-black dark:border-white py-12 px-6 mt-auto transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
@@ -31,16 +34,31 @@ export const Footer = () => {
 
           <!-- CONNECT (4 cols) - CAJA CIRCULAR -->
           <div class="md:col-span-4 bg-black text-white p-8 rounded-[2rem] shadow-[8px_8px_0px_0px_rgba(220,38,38,1)]">
-            <h3 class="text-xs font-black uppercase tracking-[.3em] mb-4 text-red-600">Intel Dispatch</h3>
-            <p class="text-[9px] uppercase font-bold mb-6 tracking-tighter">Join the elite list for early drops.</p>
+            <h3 class="text-xs font-black uppercase tracking-[.3em] mb-4 text-red-600">Account Access</h3>
             
-            <div class="flex items-center bg-white/10 rounded-full px-5 py-3 border border-white/10 focus-within:border-red-600 transition-colors">
-              <input type="email" placeholder="YOUR EMAIL" 
-                     class="bg-transparent w-full text-[10px] font-black outline-none placeholder:text-white/20 uppercase text-white" />
-              <button class="text-red-600 font-black text-[10px] hover:scale-110 transition-transform ml-2">
-                  GO →
-              </button>
-            </div>
+            ${isLoggedIn ? `
+              <p class="text-[9px] uppercase font-bold mb-6 tracking-tighter text-green-500">Access Granted. You are connected.</p>
+              <div class="flex items-center justify-center bg-white/10 rounded-full px-5 py-3 border border-white/10">
+                <span class="text-white font-black text-[10px] uppercase tracking-widest">READY FOR DUTY</span>
+              </div>
+            ` : `
+              <p class="text-[9px] uppercase font-bold mb-6 tracking-tighter">Login to your elite profile.</p>
+              
+              <form id="footer-login-form" class="space-y-3">
+                <div class="flex items-center bg-white/10 rounded-full px-5 py-2.5 border border-white/10 focus-within:border-red-600 transition-colors">
+                  <input type="email" id="footer-login-email" placeholder="YOUR EMAIL" required
+                         class="bg-transparent w-full text-[10px] font-black outline-none placeholder:text-white/20 uppercase text-white" />
+                </div>
+                <div class="flex items-center bg-white/10 rounded-full px-5 py-2.5 border border-white/10 focus-within:border-red-600 transition-colors">
+                  <input type="password" id="footer-login-password" placeholder="PASSWORD" required
+                         class="bg-transparent w-full text-[10px] font-black outline-none placeholder:text-white/20 text-white" />
+                  <button type="submit" id="footer-login-btn" class="text-red-600 font-black text-[10px] hover:scale-110 transition-transform ml-2">
+                      GO →
+                  </button>
+                </div>
+                <div id="footer-login-error" class="hidden text-red-500 text-[9px] font-bold uppercase tracking-wider mt-2 text-center"></div>
+              </form>
+            `}
           </div>
 
         </div>
@@ -66,3 +84,34 @@ export const Footer = () => {
     </footer>
   `;
 };
+
+export const initFooter = () => {
+  const form = document.getElementById('footer-login-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('footer-login-email').value;
+      const pass = document.getElementById('footer-login-password').value;
+      const errorDiv = document.getElementById('footer-login-error');
+      const btn = document.getElementById('footer-login-btn');
+      
+      errorDiv.classList.add('hidden');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '...';
+      btn.disabled = true;
+
+      try {
+        const data = await login(email, pass);
+        setToken(data.token);
+        // Reload to update Navbar and Footer states
+        window.location.reload();
+      } catch (err) {
+        errorDiv.textContent = err.response?.data?.error || 'Authentication Failed';
+        errorDiv.classList.remove('hidden');
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    });
+  }
+};

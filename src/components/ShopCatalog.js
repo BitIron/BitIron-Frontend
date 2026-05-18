@@ -34,8 +34,7 @@ const SkeletonCard = () => `
 export const ShopCatalog = () => `
   <section
     id="catalog"
-    class="relative w-full bg-white dark:bg-black text-black dark:text-white flex flex-col px-6 sm:px-10 lg:px-16 overflow-hidden transition-colors duration-300"
-    style="height: 100dvh; min-height: 100vh;"
+    class="relative w-full bg-white dark:bg-black text-black dark:text-white flex flex-col px-6 sm:px-10 lg:px-16 transition-colors duration-300"
   >
 
     <!-- Línea decorativa roja superior -->
@@ -82,8 +81,8 @@ export const ShopCatalog = () => `
       </div>
     </div>
 
-    <!-- ── Grid: flex-1 para ocupar el espacio restante, con scroll interno ── -->
-    <div class="flex-1 overflow-y-auto max-w-7xl w-full mx-auto mt-6 pb-8">
+    <!-- ── Grid: natural flow without inner scroll ── -->
+    <div class="max-w-7xl w-full mx-auto mt-6 pb-8">
 
       <!-- Sleek Brutalist Announcement Ticker/Banner -->
       <div class="mb-8 border-4 border-black dark:border-white bg-[#e62429] p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">

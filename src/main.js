@@ -14,6 +14,7 @@ import { initHeroAnimations, animatePhilosophySection } from './lib/motion.js';
 import { AICoachChat } from './components/AIchat.js';
 import { initAICoach } from './lib/aichat.js';
 import { initCart } from './lib/cart.js';
+import { initFooter } from './components/Footer.js';
 
 const initApp = () => {
   const app = document.querySelector('#app');
@@ -30,6 +31,7 @@ const initApp = () => {
   initShopCatalog();
   initAICoach();
   initCart();
+  initFooter();
 
   console.log('🚀 BitIron Frontend Initialized | Unleash Your Legacy');
 };
