@@ -7,7 +7,7 @@ initTheme();
 import { Navbar } from './components/Navbar.js';
 import { Footer } from './components/Footer.js';
 import { getCartData, updateItemQuantity, removeItemFromCart, initCart } from './lib/cart.js';
-import { getToken } from './lib/api.js';
+import { getToken, checkoutPedido, decodeToken } from './lib/api.js';
 
 let appliedDiscount = 0; // 0.20 para 20% de descuento
 
@@ -76,31 +76,55 @@ const initCheckout = async () => {
       alert("YOUR ARSENAL IS EMPTY.");
       return;
     }
+
+    // Obtener el IdCliente desde el token JWT
+    const token = getToken();
+    const decoded = decodeToken(token);
+    const idCliente = decoded?.id || decoded?.IdCliente || decoded?.idCliente;
+
+    if (!idCliente) {
+      alert('SESSION ERROR. PLEASE LOG IN AGAIN.');
+      window.location.href = '/login.html';
+      return;
+    }
     
     // UI Feedback: Simular procesamiento
     const btn = document.getElementById('btn-checkout');
     btn.disabled = true;
     btn.innerHTML = '<span class="animate-pulse">PROCESSING SECURE PAYMENT...</span>';
-    
-    // Esperar 2.5 segundos para dar sensación de procesamiento real
+
+    // Esperar 1.5s para dar sensación de procesamiento real, luego llamar al backend
     setTimeout(async () => {
-      // Limpiar el carrito (borrar item por item para sincronizar DB)
-      for (const item of items) {
-        const idCarrito = item.IdCarrito || item.idCarrito;
-        await removeItemFromCart(idCarrito);
+      try {
+        // ✅ FASE 0 FIX: Llamar al endpoint real del backend.
+        // El backend ejecuta una transacción atómica que:
+        //   1. Valida el stock de cada producto.
+        //   2. Crea el registro en la tabla PEDIDO.
+        //   3. Inserta los DETALLE_PEDIDO.
+        //   4. Resta el stock de cada PRODUCTO.
+        //   5. Vacía el CARRITO del cliente en DB.
+        const result = await checkoutPedido(idCliente);
+
+        // UI Feedback: Éxito
+        btn.classList.remove('bg-[#e62429]');
+        btn.classList.add('bg-green-600');
+        btn.innerHTML = `ORDER #${result.IdPedido} CONFIRMED! WELCOME TO THE ELITE.`;
+
+        // Redirigir al dashboard (historial de pedidos) después de 3 segundos
+        setTimeout(() => {
+          window.location.href = '/dashboard.html';
+        }, 3000);
+
+      } catch (error) {
+        // El backend devuelve 400 si hay stock insuficiente o carrito vacío
+        const msg = error?.response?.data?.message || 'PAYMENT ERROR. PLEASE TRY AGAIN.';
+        btn.disabled = false;
+        btn.innerHTML = 'COMPLETE PURCHASE';
+        btn.classList.remove('bg-green-600');
+        btn.classList.add('bg-[#e62429]');
+        alert(`❌ ${msg.toUpperCase()}`);
       }
-      
-      // UI Feedback: Éxito
-      btn.classList.remove('bg-[#e62429]');
-      btn.classList.add('bg-green-600');
-      btn.innerHTML = 'ORDER CONFIRMED! WELCOME TO THE ELITE.';
-      
-      // Redirigir al inicio después de 3 segundos
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 3000);
-      
-    }, 2500);
+    }, 1500);
   });
 };
 

@@ -120,6 +120,16 @@ export const getPedidosCliente = async (idCliente) => {
   return response.data;
 };
 
+/**
+ * POST /api/pedidos/checkout
+ * Procesa el carrito actual del cliente en una transacción atómica:
+ * valida stock, crea el PEDIDO, inserta DETALLE_PEDIDO, resta stock y vacía el CARRITO.
+ */
+export const checkoutPedido = async (idCliente) => {
+  const response = await api.post('/pedidos/checkout', { IdCliente: idCliente });
+  return response.data;
+};
+
 // ── ASESORIAS / PLANES DE ENTRENAMIENTO ──────────────────────────────────────────
 
 export const getAsesoriasHistorial = async () => {
