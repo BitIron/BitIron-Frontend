@@ -8,8 +8,8 @@ export const ProductCard = (product) => {
   const id          = product.id          || product.ID          || product.IdProducto;
   const nombre      = product.nombre      || product.Nombre;
   const precio      = product.precio      || product.Precio;
-  const categoria   = product.categoria   || product.Categoria;
-  const imagen_url  = product.imagen_url  || product.Imagen_URL;
+  const categoria   = product.categoria   || product.Categoria || product.NombreCategoria;
+  const imagen_url  = product.imagen_url  || product.Imagen_URL || product.Imagen_Url;
   const descripcion = product.descripcion || product.Descripcion;
 
   // Formatea el precio con 2 decimales y símbolo €
