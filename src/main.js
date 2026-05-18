@@ -1,5 +1,10 @@
 // src/main.js
 import './styles/global.css';
+import { initTheme } from './lib/theme.js';
+
+// Inicializar tema antes de renderizar
+initTheme();
+
 import { MainLayout } from './layouts/MainLayout.js';
 import { Hero } from './components/Hero.js';
 import { PhilosophySection } from './components/PhilosophySection.js';

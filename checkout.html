@@ -10,7 +10,7 @@
     .fouc-prevent { opacity: 0; }
   </style>
 </head>
-<body class="bg-white text-black min-h-screen flex flex-col font-sans selection:bg-black selection:text-white fouc-prevent overflow-x-hidden">
+<body class="bg-white dark:bg-black text-black dark:text-white min-h-screen flex flex-col font-sans selection:bg-black selection:text-white fouc-prevent overflow-x-hidden transition-colors duration-300">
   
   <div id="navbar-container"></div>
 
@@ -18,7 +18,7 @@
     
     <!-- Decoraciones Brutalistas: Barra de Pesas (Barbell) -->
     <div class="hidden 2xl:block absolute top-64 left-[-16rem] w-[300px] h-[300px] pointer-events-none select-none z-0">
-      <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-black opacity-[0.03] -rotate-45">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-black dark:text-white opacity-[0.03] dark:opacity-[0.015] -rotate-45 transition-all duration-300">
         <!-- Bar -->
         <rect x="1" y="11" width="22" height="2" rx="0.5"/>
         <!-- Left Plates -->
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Header -->
-    <div class="mb-12 border-b-2 border-black pb-6">
+    <div class="mb-12 border-b-2 border-black dark:border-white pb-6">
       <p class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-2">SECURE PROCESS</p>
       <h1 class="text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-none">YOUR <span class="italic">ARSENAL</span></h1>
     </div>
@@ -42,13 +42,13 @@
       <!-- Cart Items Column (Top) -->
       <div class="w-full flex flex-col gap-8" id="cart-items-container">
         <!-- Skeleton Loaders -->
-        <div class="w-full h-32 bg-gray-100 animate-pulse border border-black/10"></div>
-        <div class="w-full h-32 bg-gray-100 animate-pulse border border-black/10"></div>
-        <div class="w-full h-32 bg-gray-100 animate-pulse border border-black/10"></div>
+        <div class="w-full h-32 bg-gray-100 dark:bg-zinc-900 animate-pulse border border-black/10 dark:border-white/10"></div>
+        <div class="w-full h-32 bg-gray-100 dark:bg-zinc-900 animate-pulse border border-black/10 dark:border-white/10"></div>
+        <div class="w-full h-32 bg-gray-100 dark:bg-zinc-900 animate-pulse border border-black/10 dark:border-white/10"></div>
       </div>
 
       <!-- Order Summary Column (Bottom) -->
-      <div class="w-full bg-white text-black p-8 lg:p-10 border-[6px] border-black shadow-[16px_16px_0px_0px_#e62429] relative mt-8 z-10">
+      <div class="w-full bg-white dark:bg-black text-black dark:text-white p-8 lg:p-10 border-[6px] border-black dark:border-white shadow-[16px_16px_0px_0px_#e62429] relative mt-8 z-10 transition-colors duration-300">
         
         <!-- Cuadrados Rojos Estéticos (Anclados al Summary con la misma estructura que auth.js) -->
         <div class="hidden 2xl:block absolute -top-[25rem] -right-[32rem] w-[500px] h-[500px] pointer-events-none z-[-1]">
@@ -56,39 +56,39 @@
           <div class="absolute bottom-52 right-48 w-32 h-32 border-4 border-[#e62429] opacity-30 rotate-12 pointer-events-none"></div>
         </div>
 
-        <h2 class="text-3xl font-black uppercase tracking-tighter border-b-4 border-black pb-4 mb-6 flex items-center justify-between">
+        <h2 class="text-3xl font-black uppercase tracking-tighter border-b-4 border-black dark:border-white pb-4 mb-6 flex items-center justify-between">
           <span>SUMMARY</span>
           <span class="text-[#e62429] text-lg">001</span>
         </h2>
         
         <!-- Promo Code Input -->
         <div class="flex gap-2 mb-8">
-          <input type="text" placeholder="PROMO CODE" class="w-full bg-gray-50 border-4 border-black px-3 py-2 text-xs font-black uppercase tracking-widest outline-none focus:bg-white transition-colors" />
-          <button class="bg-[#e62429] text-white px-4 py-2 text-xs font-black uppercase border-4 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all">APPLY</button>
+          <input type="text" id="promo-input" placeholder="PROMO CODE" class="w-full bg-gray-50 dark:bg-zinc-900 border-4 border-black dark:border-white text-black dark:text-white px-3 py-2 text-xs font-black uppercase tracking-widest outline-none focus:bg-white dark:focus:bg-black transition-colors" />
+          <button id="btn-promo" class="bg-[#e62429] text-white px-4 py-2 text-xs font-black uppercase border-4 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all">APPLY</button>
         </div>
         
         <div class="flex flex-col gap-6 text-sm font-black uppercase tracking-[0.1em] mb-8">
           <div class="flex justify-between items-center">
-            <span class="text-black/50">SUBTOTAL</span>
+            <span class="text-black/50 dark:text-white/50">SUBTOTAL</span>
             <span id="summary-subtotal" class="text-lg">0.00 €</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-black/50">SHIPPING & HANDLING</span>
+            <span class="text-black/50 dark:text-white/50">SHIPPING & HANDLING</span>
             <span class="text-[#e62429]">FREE</span>
           </div>
           
-          <div class="flex justify-between items-end text-3xl mt-6 border-t-4 border-dashed border-black pt-6">
-            <span class="text-sm text-black/50 mb-1">TOTAL</span>
-            <span id="summary-total" class="text-black tracking-tighter">0.00 €</span>
+          <div class="flex justify-between items-end text-3xl mt-6 border-t-4 border-dashed border-black dark:border-white pt-6">
+            <span class="text-sm text-black/50 dark:text-white/50 mb-1">TOTAL</span>
+            <span id="summary-total" class="text-black dark:text-white tracking-tighter">0.00 €</span>
           </div>
         </div>
 
-        <button id="btn-checkout" class="w-full bg-[#e62429] text-white py-6 text-xl font-black uppercase tracking-[0.2em] border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all duration-150 group flex justify-center items-center gap-3">
+        <button id="btn-checkout" class="w-full bg-[#e62429] text-white py-6 text-xl font-black uppercase tracking-[0.2em] border-4 border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all duration-150 group flex justify-center items-center gap-3">
           SECURE PAY
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-2 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </button>
 
-        <div class="mt-8 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-black/40">
+        <div class="mt-8 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-black/40 dark:text-white/40">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           256-BIT ENCRYPTION
         </div>
