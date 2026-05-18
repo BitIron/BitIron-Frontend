@@ -11,7 +11,7 @@ import { addItemToCart } from '../lib/cart.js';
 import { animateCatalogEntrance, animateCardReveal } from '../lib/motion.js';
 
 // Categorías disponibles — "ALL" siempre primero
-const CATEGORIES = ['ALL', 'PROTEIN', 'PRE-WORKOUT', 'CREATINE', 'RECOVERY', 'APPAREL'];
+const CATEGORIES = ['ALL', 'SUPLEMENTOS', 'EQUIPAMIENTO', 'ROPA', 'COMIDA FIT'];
 
 // ── Skeleton placeholder mientras cargan los datos ────────────────────────
 const SkeletonCard = () => `
@@ -65,19 +65,24 @@ export const ShopCatalog = () => `
 
       <!-- ── Filtros ──────────────────────────────────────────────────── -->
       <div id="catalog-filters" class="flex flex-wrap gap-2 mt-6 opacity-0">
-        ${CATEGORIES.map((cat, i) => `
-          <button
-            class="filter-btn text-[10px] font-black uppercase tracking-[0.25em] px-4 py-2
-                   border transition-all duration-300 cursor-pointer
-                   ${i === 0
-                     ? 'border-[#e62429] text-[#e62429] bg-[#e62429]/10'
-                     : 'border-black/15 dark:border-white/15 text-black/40 dark:text-white/40 bg-transparent hover:border-black/60 dark:hover:border-white/60 hover:text-black/80 dark:hover:text-white/80'}"
-            data-filter="${cat.toLowerCase() === 'all' ? 'all' : cat.toLowerCase()}"
-            aria-pressed="${i === 0}"
-          >
-            ${cat}
-          </button>
-        `).join('')}
+        ${CATEGORIES.map((cat, i) => {
+          let filterVal = cat.toLowerCase();
+          if (cat === 'SUPLEMENTOS') filterVal = 'suplementacion';
+          if (cat === 'ROPA') filterVal = 'ropa fitness';
+          return `
+            <button
+              class="filter-btn text-[10px] font-black uppercase tracking-[0.25em] px-4 py-2
+                     border transition-all duration-300 cursor-pointer
+                     ${i === 0
+                       ? 'border-[#e62429] text-[#e62429] bg-[#e62429]/10'
+                       : 'border-black/15 dark:border-white/15 text-black/40 dark:text-white/40 bg-transparent hover:border-black/60 dark:hover:border-white/60 hover:text-black/80 dark:hover:text-white/80'}"
+              data-filter="${filterVal}"
+              aria-pressed="${i === 0}"
+            >
+              ${cat}
+            </button>
+          `;
+        }).join('')}
       </div>
     </div>
 
@@ -171,9 +176,10 @@ export const initShopCatalog = async () => {
     activeFilter = filter;
     const filtered = filter === 'all'
       ? allProducts
-      : allProducts.filter(p =>
-          (p.categoria || '').toLowerCase() === filter
-        );
+      : allProducts.filter(p => {
+          const categoryName = (p.NombreCategoria || p.categoria || p.Categoria || '').toLowerCase();
+          return categoryName === filter;
+        });
     renderProducts(filtered);
   };
 
