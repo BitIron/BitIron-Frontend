@@ -3,8 +3,16 @@
 // Recibe un objeto product del backend: { id, nombre, precio, categoria, imagen_url, descripcion }
 // Renderiza HTML string para inyectar en el grid.
 
+// Map DB category names (Spanish) → English display labels
+const CATEGORY_LABELS = {
+  'suplementacion': 'SUPPLEMENTS',
+  'equipamiento':   'EQUIPMENT',
+  'ropa fitness':   'CLOTHING',
+  'comida fit':     'FIT FOOD',
+};
+
 export const ProductCard = (product) => {
-  // Normalizamos las propiedades para soportar tanto minúsculas (JS) como Mayúsculas (SQL/Backend)
+  // Normalize properties to support both camelCase (JS) and PascalCase (SQL/Backend)
   const id          = product.id          || product.ID          || product.IdProducto;
   const nombre      = product.nombre      || product.Nombre;
   const precio      = product.precio      || product.Precio;
@@ -12,11 +20,12 @@ export const ProductCard = (product) => {
   const imagen_url  = product.imagen_url  || product.Imagen_URL || product.Imagen_Url;
   const descripcion = product.descripcion || product.Descripcion;
 
-  // Formatea el precio con 2 decimales y símbolo €
+  // Format price with 2 decimals and € symbol
   const formattedPrice = parseFloat(precio || 0).toFixed(2);
 
-  // Label de categoría — color rojo si es "pre-workout", blanco resto
-  const categoryLabel = categoria ? categoria.toUpperCase() : 'SUPPLEMENT';
+  // Translate DB category name to English for the badge
+  const categoryKey   = (categoria || '').toLowerCase();
+  const categoryLabel = CATEGORY_LABELS[categoryKey] || (categoria ? categoria.toUpperCase() : 'SUPPLEMENT');
 
   // Imagen: usa la del backend o un placeholder oscuro con iniciales
   const imgSrc = imagen_url || `https://placehold.co/400x400/111111/e62429?text=${encodeURIComponent(nombre?.charAt(0) || 'B')}`;

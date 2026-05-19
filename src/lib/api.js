@@ -45,7 +45,7 @@ api.interceptors.response.use(
  * Devuelve la lista completa de productos.
  */
 export const getProductos = async () => {
-  const response = await api.get('/productos');
+  const response = await api.get('/productos?limit=100');
   // El backend devuelve { success: true, data: [...] }
   return response.data.data || response.data;
 };

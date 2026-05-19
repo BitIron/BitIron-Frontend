@@ -156,12 +156,17 @@ const renderCart = () => {
     const itemTotal = precio * cantidad;
     subtotal += itemTotal;
 
+    const imagen_url = item.Imagen_Url || item.imagen_url;
+
     html += `
       <div class="flex flex-col sm:flex-row gap-6 lg:gap-10 border-b border-black/10 dark:border-white/10 pb-8 group text-black dark:text-white" data-id="${idCarrito}">
-        <!-- Image Placeholder -->
+        <!-- Product Image -->
         <div class="w-full sm:w-40 h-40 bg-gray-50 dark:bg-zinc-900 flex-shrink-0 flex items-center justify-center border border-black/5 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
            <div class="absolute inset-0 bg-black/5 dark:bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-           <span class="text-7xl font-black text-black/10 dark:text-white/10 group-hover:text-[#e62429] transition-colors duration-500 font-display relative z-10">${nombre.charAt(0)}</span>
+           ${imagen_url
+             ? `<img src="${imagen_url}" alt="${nombre}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 relative z-10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" /><span class="text-7xl font-black text-black/10 dark:text-white/10 group-hover:text-[#e62429] transition-colors duration-500 font-display relative z-10 hidden items-center justify-center w-full h-full">${nombre.charAt(0)}</span>`
+             : `<span class="text-7xl font-black text-black/10 dark:text-white/10 group-hover:text-[#e62429] transition-colors duration-500 font-display relative z-10">${nombre.charAt(0)}</span>`
+           }
         </div>
         
         <!-- Details -->
