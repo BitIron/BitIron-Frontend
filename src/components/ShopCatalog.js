@@ -9,6 +9,7 @@ import { ProductCard } from './ProductCard.js';
 import { getProductos } from '../lib/api.js';
 import { addItemToCart } from '../lib/cart.js';
 import { animateCatalogEntrance, animateCardReveal } from '../lib/motion.js';
+import { openProductDetailModal } from './productDetailModal.js';
 
 // Categorías disponibles — "ALL" siempre primero
 const CATEGORIES = ['ALL', 'SUPLEMENTOS', 'EQUIPAMIENTO', 'ROPA', 'COMIDA FIT'];
@@ -33,8 +34,7 @@ const SkeletonCard = () => `
 export const ShopCatalog = () => `
   <section
     id="catalog"
-    class="relative w-full bg-white dark:bg-black text-black dark:text-white flex flex-col px-6 sm:px-10 lg:px-16 overflow-hidden transition-colors duration-300"
-    style="height: 100dvh; min-height: 100vh;"
+    class="relative w-full bg-white dark:bg-black text-black dark:text-white flex flex-col px-6 sm:px-10 lg:px-16 transition-colors duration-300"
   >
 
     <!-- Línea decorativa roja superior -->
@@ -86,8 +86,8 @@ export const ShopCatalog = () => `
       </div>
     </div>
 
-    <!-- ── Grid: flex-1 para ocupar el espacio restante, con scroll interno ── -->
-    <div class="flex-1 overflow-y-auto max-w-7xl w-full mx-auto mt-6 pb-8">
+    <!-- ── Grid: natural flow without inner scroll ── -->
+    <div class="max-w-7xl w-full mx-auto mt-6 pb-8">
 
       <!-- Sleek Brutalist Announcement Ticker/Banner -->
       <div class="mb-8 border-4 border-black dark:border-white bg-[#e62429] p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
@@ -142,14 +142,14 @@ export const initShopCatalog = async () => {
   // Animación de entrada del header y filtros
   animateCatalogEntrance();
 
-  const grid      = document.getElementById('products-grid');
-  const countEl   = document.getElementById('product-count');
-  const emptyEl   = document.getElementById('catalog-empty');
-  const errorEl   = document.getElementById('catalog-error');
+  const grid = document.getElementById('products-grid');
+  const countEl = document.getElementById('product-count');
+  const emptyEl = document.getElementById('catalog-empty');
+  const errorEl = document.getElementById('catalog-error');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
   // Estado local
-  let allProducts  = [];
+  let allProducts = [];
   let activeFilter = 'all';
 
   // ── 1. Renderiza productos filtrados en el grid ──────────────────────
@@ -200,39 +200,57 @@ export const initShopCatalog = async () => {
     });
   });
 
-  // ── 3.5 Añadir al carrito (Delegación de eventos) ────────────────────
+  // ── 3.5 Añadir al carrito & Detalle de Producto (Delegación de eventos) ──
   grid.addEventListener('click', async (e) => {
     const btn = e.target.closest('.btn-add-cart');
-    if (!btn) return;
 
-    e.preventDefault(); // Por si acaso
-    e.stopPropagation();
+    // Caso 1: Click en el botón de agregar al carrito
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const productId = btn.dataset.id;
-    const originalText = btn.textContent;
-    btn.textContent = 'ADDING...';
-    btn.disabled = true;
+      const productId = btn.dataset.id;
+      const originalText = btn.textContent;
+      btn.textContent = 'ADDING...';
+      btn.disabled = true;
 
-    const success = await addItemToCart(productId);
-    
-    if (success) {
-      btn.textContent = 'ADDED!';
-      btn.classList.add('bg-green-600', 'text-white');
-      btn.classList.remove('bg-black', 'hover:bg-[#e62429]');
-      
-      // Volver a la normalidad tras 2s
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-        btn.classList.remove('bg-green-600');
-        btn.classList.add('bg-black', 'hover:bg-[#e62429]');
-      }, 2000);
-    } else {
-      btn.textContent = 'ERROR';
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }, 2000);
+      const success = await addItemToCart(productId);
+
+      if (success) {
+        btn.textContent = 'ADDED!';
+        btn.classList.add('bg-green-600', 'text-white');
+        btn.classList.remove('bg-black', 'hover:bg-[#e62429]');
+
+        // Volver a la normalidad tras 2s
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          btn.classList.remove('bg-green-600');
+          btn.classList.add('bg-black', 'hover:bg-[#e62429]');
+        }, 2000);
+      } else {
+        btn.textContent = 'ERROR';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }, 2000);
+      }
+      return;
+    }
+
+    // Caso 2: Click en cualquier otra parte de la tarjeta del producto -> Abrir modal
+    const card = e.target.closest('.product-card');
+    if (card) {
+      const productId = card.dataset.id;
+      // Encontrar el producto correspondiente en el estado local de allProducts
+      const product = allProducts.find(p => {
+        const pId = p.id || p.ID || p.IdProducto;
+        return String(pId) === String(productId);
+      });
+
+      if (product) {
+        openProductDetailModal(product, allProducts);
+      }
     }
   });
 
