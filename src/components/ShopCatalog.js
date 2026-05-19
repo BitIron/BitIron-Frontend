@@ -11,8 +11,15 @@ import { addItemToCart } from '../lib/cart.js';
 import { animateCatalogEntrance, animateCardReveal } from '../lib/motion.js';
 import { openProductDetailModal } from './productDetailModal.js';
 
-// Categorías disponibles — "ALL" siempre primero
-const CATEGORIES = ['ALL', 'SUPLEMENTOS', 'EQUIPAMIENTO', 'ROPA', 'COMIDA FIT'];
+// Available categories — "ALL" always first
+// label: what the button shows | filter: exact DB NombreCategoria (lowercase)
+const CATEGORIES = [
+  { label: 'ALL',          filter: 'all'              },
+  { label: 'SUPPLEMENTS',  filter: 'suplementacion'   },
+  { label: 'EQUIPMENT',    filter: 'equipamiento'     },
+  { label: 'CLOTHING',     filter: 'ropa fitness'     },
+  { label: 'FIT FOOD',     filter: 'comida fit'       },
+];
 
 // ── Skeleton placeholder mientras cargan los datos ────────────────────────
 const SkeletonCard = () => `
@@ -63,26 +70,21 @@ export const ShopCatalog = () => `
         <div class="mt-4 h-[1px] bg-black/10 dark:bg-white/10"></div>
       </div>
 
-      <!-- ── Filtros ──────────────────────────────────────────────────── -->
+      <!-- ── Filters ─────────────────────────────────────────────────── -->
       <div id="catalog-filters" class="flex flex-wrap gap-2 mt-6 opacity-0">
-        ${CATEGORIES.map((cat, i) => {
-          let filterVal = cat.toLowerCase();
-          if (cat === 'SUPLEMENTOS') filterVal = 'suplementacion';
-          if (cat === 'ROPA') filterVal = 'ropa fitness';
-          return `
+        ${CATEGORIES.map(({ label, filter }, i) => `
             <button
               class="filter-btn text-[10px] font-black uppercase tracking-[0.25em] px-4 py-2
                      border transition-all duration-300 cursor-pointer
                      ${i === 0
                        ? 'border-[#e62429] text-[#e62429] bg-[#e62429]/10'
                        : 'border-black/15 dark:border-white/15 text-black/40 dark:text-white/40 bg-transparent hover:border-black/60 dark:hover:border-white/60 hover:text-black/80 dark:hover:text-white/80'}"
-              data-filter="${filterVal}"
+              data-filter="${filter}"
               aria-pressed="${i === 0}"
             >
-              ${cat}
+              ${label}
             </button>
-          `;
-        }).join('')}
+          `).join('')}
       </div>
     </div>
 
@@ -171,15 +173,32 @@ export const initShopCatalog = async () => {
     animateCardReveal('#products-grid .product-card');
   };
 
-  // ── 2. Filtra por categoría ──────────────────────────────────────────
+  // ── 2. Filter by category ────────────────────────────────────────────
   const applyFilter = (filter) => {
     activeFilter = filter;
-    const filtered = filter === 'all'
-      ? allProducts
+
+    let filtered = filter === 'all'
+      ? [...allProducts]
       : allProducts.filter(p => {
           const categoryName = (p.NombreCategoria || p.categoria || p.Categoria || '').toLowerCase();
           return categoryName === filter;
         });
+
+    // Deduplicate by Imagen_Url — show only one product per unique image
+    const seenImages = new Set();
+    filtered = filtered.filter(p => {
+      const img = p.Imagen_Url || p.imagen_url || null;
+      if (!img) return true; // always show products without image
+      if (seenImages.has(img)) return false;
+      seenImages.add(img);
+      return true;
+    });
+
+    // Shuffle when showing ALL
+    if (filter === 'all') {
+      filtered = filtered.sort(() => Math.random() - 0.5);
+    }
+
     renderProducts(filtered);
   };
 
