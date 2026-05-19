@@ -23,6 +23,21 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Interceptor para manejar errores de respuesta (como sesión expirada 401)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('bitiron_token');
+      if (!window.location.pathname.includes('login.html')) {
+        alert('YOUR SESSION HAS EXPIRED. PLEASE LOGIN AGAIN.');
+        window.location.href = '/login.html';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 // ── PRODUCTOS (Usado en ShopCatalog) ─────────────────────────────────────────
 
 /**
