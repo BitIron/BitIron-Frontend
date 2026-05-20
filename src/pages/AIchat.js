@@ -100,6 +100,21 @@ const slide = (step, bgIdx, stepLabel, headline, redPart, cardsHtml) => `
 export const AIchatPage = () => `
   <div id="advisor-app" class="relative w-full overflow-hidden bg-black" style="min-height:100vh">
 
+    <!-- Intro Loader -->
+    <div id="intro-loader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-1000">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#e62429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-8" style="animation:spin-intro 1.2s linear infinite">
+        <path d="M6 5v14M18 5v14"/>
+        <rect x="2" y="7" width="4" height="10" rx="1" fill="#e62429" stroke="#000" stroke-width="1.5"/>
+        <rect x="18" y="7" width="4" height="10" rx="1" fill="#e62429" stroke="#000" stroke-width="1.5"/>
+        <line x1="6" y1="12" x2="18" y2="12" stroke-width="4"/>
+      </svg>
+      <style>@keyframes spin-intro{to{transform:rotate(360deg)}}</style>
+      <h2 class="font-black uppercase text-white tracking-tighter mb-3 text-center" style="font-size:clamp(1.5rem,3vw,2.5rem);">
+        INITIALIZING<br><span class="text-[#e62429]">AI ADVISOR</span>
+      </h2>
+      <p class="text-white/35 font-bold uppercase tracking-widest mt-2" style="font-size:11px">Loading Elite Protocols...</p>
+    </div>
+
     <!-- Progress bar -->
     <div class="fixed top-0 left-0 w-full h-[2px] z-50" style="background:rgba(255,255,255,0.07)">
       <div id="progress-bar" class="h-full transition-all duration-600"

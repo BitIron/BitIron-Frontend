@@ -624,7 +624,27 @@ export const initAICoach = () => {
   // ── Boot: animate first slide ─────────────────────────────────
   updateUI();
   const first = getSlide(1);
-  if (first) animateIn(first);
+  const introLoader = document.getElementById('intro-loader');
+  
+  if (introLoader) {
+    if (first) {
+      first.classList.remove('hidden');
+      first.style.opacity = '0';
+    }
+    // Let the cartoon dumbbell spin for a moment, then fade out the loader
+    setTimeout(() => {
+      introLoader.style.opacity = '0';
+      setTimeout(() => {
+        introLoader.remove();
+        if (first) {
+          first.style.opacity = '1';
+          animateIn(first);
+        }
+      }, 1000);
+    }, 1500);
+  } else {
+    if (first) animateIn(first);
+  }
 };
 
 // ── Workout Parser: 100% Robust Regex-based fail-safe decorator ──
@@ -649,9 +669,8 @@ const parseWorkout = (text) => {
         html += `
           <h3 class="font-black text-white text-base uppercase tracking-wider border-b border-white/10 pb-3 mt-8 mb-4 flex justify-between items-center">
             <span>${title}</span>
-            <span class="text-[9px] text-[#e62429] tracking-widest font-black border border-[#e62429]/20 px-2 py-0.5 rounded">SECTION</span>
-          </h3>
-        `;
+            <svg class="text-[#e62429]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </h3>`;
         continue;
       }
 
