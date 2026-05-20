@@ -718,6 +718,7 @@ export const Navbar = () => {
         <span class="text-[9px] font-black text-[#e62429] tracking-[0.2em] block mb-1">STATUS: ELITE</span>
         <span class="text-sm font-black italic tracking-tight block athlete-name-label">${initialName}</span>
       </div>
+      <li class="mb-2"><a href="/dashboard.html" class="text-md hover:text-red-600 transition-colors">Dashboard (AI Plans)</a></li>
       <li class="mb-2"><a href="#" id="navbar-orders-trigger-mobile" class="text-md hover:text-red-600 transition-colors">My Arsenal</a></li>
       <li class="mb-2"><a href="#" id="navbar-theme-toggle-mobile" class="text-md hover:text-red-600 transition-colors flex justify-between items-center"><span>Dark Mode</span><span id="theme-status-text-mobile" class="text-red-600 text-xs">${themeText}</span></a></li>
       <li class="mt-4 border-t border-black/5 dark:border-white/5 pt-4">
@@ -741,6 +742,11 @@ export const Navbar = () => {
           <li>
             <a href="#" id="navbar-orders-trigger" class="py-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors rounded-none">
               MY ARSENAL (ORDERS)
+            </a>
+          </li>
+          <li>
+            <a href="/dashboard.html" class="py-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors rounded-none">
+              DASHBOARD (AI PLANS)
             </a>
           </li>
           <li>
