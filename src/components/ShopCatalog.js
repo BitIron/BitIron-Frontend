@@ -9,7 +9,7 @@ import { ProductCard } from './ProductCard.js';
 import { getProductos } from '../lib/api.js';
 import { addItemToCart } from '../lib/cart.js';
 import { animateCatalogEntrance, animateCardReveal } from '../lib/motion.js';
-import { openProductDetailModal } from './productDetailModal.js';
+import { openProductDetailModal } from './ProductDetailModal.js';
 
 // Available categories — "ALL" always first
 // label: what the button shows | filter: exact DB NombreCategoria (lowercase)
