@@ -134,7 +134,7 @@ export const ShopCatalog = () => `
         </div>
         <div class="flex items-center gap-3 bg-black text-white px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(230,36,41,1)]">
           <span class="text-[10px] font-black uppercase tracking-widest text-[#e62429]">USE CODE:</span>
-          <span class="text-xl font-black tracking-widest select-all cursor-pointer hover:text-[#e62429] transition-colors font-mono" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); alert('PROMO CODE ATHLETE20 COPIED! USE IT AT CHECKOUT.');">ATHLETE20</span>
+          <span class="text-xl font-black tracking-widest select-all cursor-pointer hover:text-[#e62429] transition-colors font-mono" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); window.showToast('PROMO CODE ATHLETE20 COPIED! USE IT AT CHECKOUT.', 'success');">ATHLETE20</span>
         </div>
       </div>
 
@@ -192,7 +192,7 @@ export const ShopCatalog = () => `
                 <p class="text-black font-bold text-[10px] uppercase tracking-widest border-t-2 border-black border-dashed pt-2">
                   Use Code:
                 </p>
-                <div class="bg-black text-yellow-400 text-xl font-black p-2 mt-2 w-full text-center border-2 border-black cursor-pointer group-hover:bg-[#e62429] group-hover:text-white transition-colors select-all font-mono shadow-inner" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); alert('PROMO CODE ATHLETE20 COPIED!');">
+                <div class="bg-black text-yellow-400 text-xl font-black p-2 mt-2 w-full text-center border-2 border-black cursor-pointer group-hover:bg-[#e62429] group-hover:text-white transition-colors select-all font-mono shadow-inner" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); window.showToast('PROMO CODE ATHLETE20 COPIED!', 'success');">
                   ATHLETE20
                 </div>
               </div>

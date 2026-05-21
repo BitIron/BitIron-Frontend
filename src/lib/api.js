@@ -3,6 +3,7 @@
 // Solo incluye lo que estamos usando actualmente en el frontend.
 
 import axios from 'axios';
+import { showToast } from './toast.js';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
@@ -30,7 +31,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('bitiron_token');
       if (!window.location.pathname.includes('login.html')) {
-        alert('YOUR SESSION HAS EXPIRED. PLEASE LOGIN AGAIN.');
+        showToast('YOUR SESSION HAS EXPIRED. PLEASE LOGIN AGAIN.', 'error');
         window.location.href = '/login.html';
       }
     }
