@@ -744,13 +744,13 @@ const parseDiet = (text) => {
     const lines = text.split('\n');
     let kcal = 2500, prot = 160, carb = 300, fat = 70;
     
-    // Quick scan to extract macros
+    // Quick scan to extract macros (plan is generated in English)
     for (let line of lines) {
-      if (line.toLowerCase().includes('kcal diarias')) {
-        const kcalMatch = line.match(/kcal diarias:\s*~?(\d+)/i);
-        const protMatch = line.match(/prote[íi]nas:\s*(\d+)g/i);
-        const carbMatch = line.match(/carbohidratos:\s*(\d+)g/i);
-        const grasMatch = line.match(/grasas:\s*(\d+)g/i);
+      if (line.toLowerCase().includes('daily kcal')) {
+        const kcalMatch = line.match(/daily kcal:\s*~?(\d+)/i);
+        const protMatch = line.match(/proteins:\s*(\d+)g/i);
+        const carbMatch = line.match(/carbs:\s*(\d+)g/i);
+        const grasMatch = line.match(/fats:\s*(\d+)g/i);
 
         kcal = kcalMatch ? parseInt(kcalMatch[1]) : 2500;
         prot = protMatch ? parseInt(protMatch[1]) : 160;
