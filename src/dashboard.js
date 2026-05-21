@@ -137,7 +137,7 @@ const parseDiet = (text) => {
 
     for (let line of lines) {
       line = line.trim();
-      if (!line || line.toLowerCase().includes('kcal diarias') || line.toLowerCase().includes('distribución elegida')) continue;
+      if (!line || line.toLowerCase().includes('daily kcal') || line.toLowerCase().includes('chosen distribution')) continue;
       
       if (line.startsWith('===') && line.endsWith('===')) {
         if (inList) { html += '</ul>'; inList = false; }
