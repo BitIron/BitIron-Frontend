@@ -11,7 +11,7 @@ import { PhilosophySection } from './components/PhilosophySection.js';
 import { ShopCatalog, initShopCatalog } from './components/ShopCatalog.js';
 import { initHeroAnimations, animatePhilosophySection } from './lib/motion.js';
 
-import { AICoachChat } from './components/AIchat.js';
+import { AdvisorCTA, initAdvisorCTA } from './components/AdvisorCTA.js';
 import { initAICoach } from './lib/aichat.js';
 import { initCart } from './lib/cart.js';
 import { initFooter } from './components/Footer.js';
@@ -24,12 +24,13 @@ const initApp = () => {
     Hero() +
     PhilosophySection() +
     ShopCatalog() +
-    AICoachChat()
+    AdvisorCTA()
   );
   initHeroAnimations();
   animatePhilosophySection();
   initShopCatalog();
-  initAICoach();
+  initAdvisorCTA();
+  // initAICoach is only needed in advisor.html now
   initCart();
   initFooter();
 

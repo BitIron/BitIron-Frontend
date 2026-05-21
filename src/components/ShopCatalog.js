@@ -88,11 +88,39 @@ export const ShopCatalog = () => `
       </div>
     </div>
 
-    <!-- ── Grid: natural flow without inner scroll ── -->
-    <div class="max-w-7xl w-full mx-auto mt-6 pb-8">
+    <!-- ── Grid + Banners Wrapper ── -->
+    <div class="w-full mt-6 pb-8 flex flex-col xl:flex-row justify-between items-start px-2 sm:px-4 2xl:px-8 gap-4 xl:gap-8">
 
+      <!-- Left Banner (Static) -->
+      <div class="hidden xl:block w-[280px] 2xl:w-[320px] shrink-0 h-[1100px] relative mt-16">
+        <div class="w-full h-full border-4 border-black dark:border-white relative overflow-hidden bg-black group transition-all duration-300">
+           <!-- Product/Gym Photo -->
+           <img src="/assets/products/lifepro_gold_whey.png" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700 origin-center">
+           <!-- Halftone Overlay -->
+           <div class="absolute inset-0 mix-blend-overlay opacity-30" style="background-image: radial-gradient(black 1px, transparent 1px); background-size: 4px 4px;"></div>
+           <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+           
+           <div class="absolute inset-0 p-5 flex flex-col justify-end">
+              <div class="transform group-hover:-translate-y-2 transition-transform duration-300">
+                <div class="inline-block bg-[#e62429] text-white text-[10px] font-black px-2 py-1 uppercase tracking-widest mb-3 border-2 border-black transform -rotate-3">
+                  NEW ARRIVAL
+                </div>
+                <h3 class="text-white font-black text-4xl xl:text-5xl uppercase tracking-tighter leading-none mb-3">
+                  WHEY<br>ISOLATE<br><span class="text-transparent" style="-webkit-text-stroke: 1px #e62429;">PURE</span>
+                </h3>
+                <p class="text-white/70 text-xs font-bold uppercase tracking-widest mb-4 border-l-2 border-[#e62429] pl-2">
+                  Zero Fillers. Just Gains.
+                </p>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Main Catalog -->
+      <div class="flex-grow w-full max-w-7xl mx-auto">
+        
       <!-- Sleek Brutalist Announcement Ticker/Banner -->
-      <div class="mb-8 border-4 border-black dark:border-white bg-[#e62429] p-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="mb-6 border-4 border-black dark:border-white bg-[#e62429] p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
         <!-- Stripe patterns -->
         <div class="absolute inset-y-0 right-0 w-1/3 bg-black opacity-10 skew-x-12 pointer-events-none"></div>
         <div class="flex items-center gap-4">
@@ -125,12 +153,61 @@ export const ShopCatalog = () => `
       </div>
 
       <!-- Estado error -->
-      <div id="catalog-error" class="hidden text-center py-24">
+      <div id="catalog-error" class="hidden text-center py-24 border-4 border-black dark:border-white border-dashed mt-6">
         <p class="text-black/30 dark:text-white/30 font-black uppercase tracking-[0.3em] text-sm mb-2">Backend offline</p>
         <p class="text-black/20 dark:text-white/20 text-xs uppercase tracking-widest">Check connection to API</p>
       </div>
 
-    </div>
+      </div> <!-- End Main Catalog -->
+
+      <!-- Right Banner (Static Cartoon Aesthetic) -->
+      <div class="hidden xl:block w-[280px] 2xl:w-[320px] shrink-0 h-[1100px] relative mt-16">
+        <div class="w-full h-full border-4 border-black dark:border-white relative overflow-hidden bg-[#e62429] group transition-all duration-300">
+           <!-- Dynamic Sunburst/Stripes Background -->
+           <div class="absolute inset-0 opacity-40 mix-blend-multiply" style="background: repeating-linear-gradient(45deg, #000 0, #000 4px, transparent 4px, transparent 12px);"></div>
+           
+           <div class="absolute inset-0 p-4 flex flex-col justify-around items-center text-center z-10 py-12">
+              
+              <!-- Top Burst -->
+              <div class="w-full flex justify-center mt-4">
+                <div class="relative">
+                  <!-- Removing infinite spin animation per user request (Browser loading issue) -->
+                  <svg class="absolute -inset-4 w-[140%] h-[140%] text-black opacity-20 transform rotate-12" viewBox="0 0 100 100">
+                    <polygon fill="currentColor" points="50,0 60,35 100,50 60,65 50,100 40,65 0,50 40,35"></polygon>
+                  </svg>
+                  <div class="bg-yellow-400 text-black font-black uppercase tracking-tighter text-4xl p-2 border-4 border-black shadow-[6px_6px_0px_#000] transform -rotate-6 group-hover:rotate-0 transition-transform relative z-10">
+                    BOOM!
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Text -->
+              <div class="w-full bg-white border-4 border-black p-4 shadow-[8px_8px_0px_#000] transform rotate-2 group-hover:-rotate-1 transition-transform relative z-10">
+                <h3 class="text-black font-black text-6xl uppercase tracking-tighter leading-none mb-1">
+                  20%
+                </h3>
+                <h4 class="text-[#e62429] font-black text-3xl uppercase tracking-tighter leading-none mb-2">
+                  OFF
+                </h4>
+                <p class="text-black font-bold text-[10px] uppercase tracking-widest border-t-2 border-black border-dashed pt-2">
+                  Use Code:
+                </p>
+                <div class="bg-black text-yellow-400 text-xl font-black p-2 mt-2 w-full text-center border-2 border-black cursor-pointer group-hover:bg-[#e62429] group-hover:text-white transition-colors select-all font-mono shadow-inner" title="Click to copy" onclick="navigator.clipboard.writeText('ATHLETE20'); alert('PROMO CODE ATHLETE20 COPIED!');">
+                  ATHLETE20
+                </div>
+              </div>
+              
+              <div class="mb-4 relative z-10">
+                <p class="text-black font-black text-[10px] uppercase tracking-[0.2em] bg-yellow-400 px-2 py-1 border-2 border-black inline-block transform rotate-3">
+                  ALL SUPPLEMENTS
+                </p>
+              </div>
+
+           </div>
+        </div>
+      </div>
+
+    </div> <!-- End Grid + Banners Wrapper -->
 
     <!-- Línea decorativa roja inferior -->
     <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#e62429] to-transparent opacity-40"></div>
