@@ -1,5 +1,6 @@
 // src/lib/cart.js
 import { getCarrito, addProductoCarrito, updateCantidadCarrito, removeProductoCarrito, getToken } from './api.js';
+import { showToast } from './toast.js';
 
 // Estado local
 let cartItemsCount = 0;
@@ -57,7 +58,7 @@ export const getCartData = () => {
 export const addItemToCart = async (productoId) => {
   if (!getToken()) {
     // Podríamos lanzar un toast o redirigir al login
-    alert('PLEASE LOGIN TO ACCESS THE ARSENAL');
+    showToast('PLEASE LOGIN TO ACCESS THE ARSENAL', 'error');
     window.location.href = '/login.html';
     return false;
   }

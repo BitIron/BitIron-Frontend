@@ -8,6 +8,7 @@ import { Navbar } from './components/Navbar.js';
 import { Footer } from './components/Footer.js';
 import { getCartData, updateItemQuantity, removeItemFromCart, initCart } from './lib/cart.js';
 import { getToken, checkoutPedido, decodeToken } from './lib/api.js';
+import { showToast } from './lib/toast.js';
 
 let appliedDiscount = 0; // 0.20 para 20% de descuento
 
@@ -40,7 +41,7 @@ const initCheckout = async () => {
       const code = promoInput.value.trim().toUpperCase();
       if (code === 'ATHLETE20') {
         if (appliedDiscount > 0) {
-          alert('PROMO CODE ALREADY APPLIED.');
+          showToast('PROMO CODE ALREADY APPLIED.', 'error');
           return;
         }
         appliedDiscount = 0.20;
@@ -62,9 +63,9 @@ const initCheckout = async () => {
         promoBtn.classList.remove('bg-[#e62429]');
         promoBtn.classList.add('bg-green-600');
         
-        alert('PROMO CODE APPLIED! 20% DISCOUNT GRANTED.');
+        showToast('PROMO CODE APPLIED! 20% DISCOUNT GRANTED.', 'success');
       } else {
-        alert('INVALID PROMO CODE.');
+        showToast('INVALID PROMO CODE.', 'error');
       }
     });
   }
@@ -73,7 +74,7 @@ const initCheckout = async () => {
   document.getElementById('btn-checkout').addEventListener('click', async () => {
     const items = getCartData();
     if (items.length === 0) {
-      alert("YOUR ARSENAL IS EMPTY.");
+      showToast("YOUR ARSENAL IS EMPTY.", 'error');
       return;
     }
 
@@ -83,7 +84,7 @@ const initCheckout = async () => {
     const idCliente = decoded?.id || decoded?.IdCliente || decoded?.idCliente;
 
     if (!idCliente) {
-      alert('SESSION ERROR. PLEASE LOG IN AGAIN.');
+      showToast('SESSION ERROR. PLEASE LOG IN AGAIN.', 'error');
       window.location.href = '/login.html';
       return;
     }
@@ -122,7 +123,7 @@ const initCheckout = async () => {
         btn.innerHTML = 'COMPLETE PURCHASE';
         btn.classList.remove('bg-green-600');
         btn.classList.add('bg-[#e62429]');
-        alert(`❌ ${msg.toUpperCase()}`);
+        showToast(`❌ ${msg.toUpperCase()}`, 'error');
       }
     }, 1500);
   });
