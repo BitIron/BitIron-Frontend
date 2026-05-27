@@ -143,6 +143,50 @@ export const initAdvisorCTA = () => {
     applyTheme();
   }, 4500);
 
+  try {
+    const response = await fetch('http://localhost:3000/api/categorias', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+            nombre: document.querySelector('#input-nombre-categoria').value
+        })
+    });
+
+    // CAPTURA DEL CONTROL DE AUDITORÍA (ESTADO 422)
+    if (response.status === 422) {
+        const errorData = await response.json();
+        
+        // 1. Alerta emergente elegante con SweetAlert2
+        Swal.fire({
+            icon: 'error',
+            title: 'Acceso Denegado',
+            text: 'Modo pruebas denegado' // El mensaje exacto exigido
+        });
+
+        // 2. Inyección del informe técnico para el equipo de IT debajo del formulario
+        const contenedorErrores = document.getElementById('it-error-report');
+        if (contenedorErrores) {
+            contenedorErrores.innerHTML = `
+                <div class="mt-4 p-4 bg-red-950/20 border border-[#e62429]/40 text-black dark:text-white font-mono text-[11px] rounded-sm">
+                    <p class="text-[#e62429] font-black tracking-wider uppercase mb-1">⚠️ INFORME TÉCNICO DE ERRORES (Dpto. IT):</p>
+                    <p><strong>URL Endpoint:</strong> ${response.url}</p>
+                    <p><strong>HTTP Status:</strong> ${response.status} Unprocessable Entity</p>
+                    <p><strong>Causa Backend:</strong> ${errorData.reason}</p>
+                </div>
+            `;
+        }
+        return; // Frenamos la inserción en la interfaz
+    }
+
+    // ... lógica normal si el estado es 200/201 (Categoría creada con éxito)
+
+} catch (error) {
+    console.error('Error crítico de red:', error);
+}
+
   // React to theme toggle button clicks
   document.addEventListener('click', (e) => {
     if (e.target.closest('#theme-toggle, [data-theme-toggle]')) {
