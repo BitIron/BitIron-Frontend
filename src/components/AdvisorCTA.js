@@ -163,7 +163,6 @@ export const initAdvisorCTA = () => {
         Swal.fire({
             icon: 'error',
             title: 'Acceso Denegado',
-            text: 'Modo pruebas denegado' // El mensaje exacto exigido
         });
 
         // 2. Inyección del informe técnico para el equipo de IT debajo del formulario
@@ -171,7 +170,7 @@ export const initAdvisorCTA = () => {
         if (contenedorErrores) {
             contenedorErrores.innerHTML = `
                 <div class="mt-4 p-4 bg-red-950/20 border border-[#e62429]/40 text-black dark:text-white font-mono text-[11px] rounded-sm">
-                    <p class="text-[#e62429] font-black tracking-wider uppercase mb-1">⚠️ INFORME TÉCNICO DE ERRORES (Dpto. IT):</p>
+                    <p class="text-[#e62429] font-black tracking-wider uppercase mb-1">INFORME TÉCNICO DE ERRORES (Dpto. IT):</p>
                     <p><strong>URL Endpoint:</strong> ${response.url}</p>
                     <p><strong>HTTP Status:</strong> ${response.status} Unprocessable Entity</p>
                     <p><strong>Causa Backend:</strong> ${errorData.reason}</p>
@@ -181,7 +180,7 @@ export const initAdvisorCTA = () => {
         return; // Frenamos la inserción en la interfaz
     }
 
-    // ... lógica normal si el estado es 200/201 (Categoría creada con éxito)
+    
 
 } catch (error) {
     console.error('Error crítico de red:', error);
