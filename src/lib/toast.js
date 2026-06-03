@@ -39,6 +39,7 @@ export const showToast = (message, type = 'info') => {
       border: border,
       borderRadius: "0", // Brutalist square edges
       zIndex: "9999",
+      
     }
   }).showToast();
 };
