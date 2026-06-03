@@ -15,16 +15,18 @@ import { AdvisorCTA, initAdvisorCTA } from './components/AdvisorCTA.js';
 import { initAICoach } from './lib/aichat.js';
 import { initCart } from './lib/cart.js';
 import { initFooter } from './components/Footer.js';
+import { ResenasComponent, initResenasLogic } from './components/Resenas.js';
+
 
 const initApp = () => {
   const app = document.querySelector('#app');
-
 
   app.innerHTML = MainLayout(
     Hero() +
     PhilosophySection() +
     ShopCatalog() +
-    AdvisorCTA()
+    AdvisorCTA() +
+    ResenasComponent()
   );
   initHeroAnimations();
   animatePhilosophySection();
@@ -33,8 +35,22 @@ const initApp = () => {
   // initAICoach is only needed in advisor.html now
   initCart();
   initFooter();
+  initResenasLogic(); 
 
   console.log('🚀 BitIron Frontend Initialized | Unleash Your Legacy');
 };
 
 document.addEventListener('DOMContentLoaded', initApp);
+
+const renderizarPagina = () => {
+    const appContainer = document.querySelector('#app'); 
+    
+    appContainer.innerHTML = `
+        ${ResenasComponent()} `;
+
+     
+};
+
+
+
+
