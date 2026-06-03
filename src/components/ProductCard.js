@@ -19,6 +19,7 @@ export const ProductCard = (product) => {
   const categoria   = product.categoria   || product.Categoria || product.NombreCategoria;
   const imagen_url  = product.imagen_url  || product.Imagen_URL || product.Imagen_Url;
   const descripcion = product.descripcion || product.Descripcion;
+  const Reseña      = product.Reseña      || product.ReseñaMedia || product.Rating;
 
   // Format price with 2 decimals and € symbol
   const formattedPrice = parseFloat(precio || 0).toFixed(2);
@@ -76,6 +77,14 @@ export const ProductCard = (product) => {
           <span class="font-black text-black dark:text-white text-lg tracking-tight">
             ${formattedPrice}<span class="text-xs text-black/40 dark:text-white/40 ml-1">€</span>
           </span>
+          <div class="flex items-center gap-1">
+            <span class="text-[10px] font-black text-black dark:text-white">
+              ${Reseña || 'N/A'}
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.077 3.955a1 1 0 01-1.498 1.077L5.985 9.863a1 1 0 00-1.364-.65L2.568 
+            </svg>
+          </div>
 
           <button class="btn-add-cart text-[9px] font-black uppercase tracking-[0.2em] text-white dark:text-black bg-black dark:bg-white hover:bg-[#e62429] dark:hover:bg-[#e62429] dark:hover:text-white px-3 py-2 transition-all duration-300" data-id="${id}">
             ADD TO CART
