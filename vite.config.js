@@ -9,6 +9,7 @@ export default defineConfig({
         login: resolve(__dirname, 'login.html'),
         advisor: resolve(__dirname, 'advisor.html'),
         checkout: resolve(__dirname, 'checkout.html'),
+        dashboard: resolve(__dirname, 'dashboard.html'),
       },
     },
   },

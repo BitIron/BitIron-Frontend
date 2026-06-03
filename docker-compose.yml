@@ -8,4 +8,4 @@ services:
       - "80:80"
     restart: unless-stopped
     environment:
-      - VITE_API_URL=http://localhost:3000/api
+      - VITE_API_URL=http://54.163.77.91:3000/api
