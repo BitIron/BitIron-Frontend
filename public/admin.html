@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin — Crear Producto</title>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <style>
+    body { font-family: sans-serif; background: #111; color: #fff; display: flex; justify-content: center; padding: 40px; }
+    form { display: flex; flex-direction: column; gap: 12px; width: 400px; }
+    input, textarea { padding: 10px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; }
+    button { padding: 12px; background: #e62429; color: #fff; font-weight: bold; border: none; cursor: pointer; border-radius: 4px; }
+    #error-report { margin-top: 20px; background: #1a0000; border: 2px solid #e62429; padding: 16px; border-radius: 4px; display: none; }
+    #error-report p { margin: 4px 0; font-size: 13px; color: #ff6060; }
+  </style>
+</head>
+<body>
+  <div>
+    <h2 style="color:#e62429;">Panel Admin — Crear Producto</h2>
+    <form id="form-producto">
+      <input type="text" id="Nombre" placeholder="Nombre del producto" required>
+      <input type="text" id="Marca" placeholder="Marca">
+      <textarea id="Descripcion" placeholder="Descripción" rows="3"></textarea>
+      <input type="number" id="Precio" placeholder="Precio" step="0.01">
+      <input type="number" id="IdCategoria" placeholder="ID Categoría">
+      <input type="number" id="Stock" placeholder="Stock">
+      <button type="button" onclick="crearProducto()">Crear Producto</button>
+    </form>
+
+    <div id="error-report">
+      <p><strong>INFORME DE ERROR — EQUIPO IT</strong></p>
+      <p id="error-url"></p>
+      <p id="error-code"></p>
+      <p id="error-reason"></p>
+    </div>
+  </div>
+
+  <script>
+    const URL_API = 'http://localhost:3000/api/productos';
+
+    async function crearProducto() {
+      const body = {
+        Nombre:      document.getElementById('Nombre').value,
+        Marca:       document.getElementById('Marca').value,
+        Descripcion: document.getElementById('Descripcion').value,
+        Precio:      parseFloat(document.getElementById('Precio').value),
+        IdCategoria: parseInt(document.getElementById('IdCategoria').value),
+        Stock:       parseInt(document.getElementById('Stock').value),
+      };
+
+      try {
+        const res = await fetch(URL_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        if (res.status === 422) {
+          const data = await res.json();
+          Toastify({
+            text: ` ${data.reason}`,
+            duration: 5000,
+            backgroundColor: '#e62429',
+            gravity: 'top',
+            position: 'right',
+          }).showToast();
+          document.getElementById('error-report').style.display = 'block';
+          document.getElementById('error-url').textContent    = `URL: ${URL_API}`;
+          document.getElementById('error-code').textContent   = `Código HTTP: 422 Unprocessable Entity`;
+          document.getElementById('error-reason').textContent = `Razón: ${data.reason}`;
+          return;
+        }
+
+        if (res.ok) {
+          Toastify({ text: ' Producto creado exitosamente', duration: 3000, backgroundColor: '#22c55e' }).showToast();
+          document.getElementById('error-report').style.display = 'none';
+        }
+
+      } catch (err) {
+        Toastify({ text: 'Error de conexión con el servidor', duration: 4000, backgroundColor: '#555' }).showToast();
+      }
+    }
+  </script>
+</body>
+</html>
